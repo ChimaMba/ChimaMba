@@ -1,0 +1,75 @@
+{
+  "_comment": "This file controls how much the agent may do without you. Edit it and restart. See docs/SETUP.md for what each field does.",
+
+  "autonomy": "auto_routine",
+
+  "model": "claude-opus-5",
+  "classifyEffort": "low",
+  "draftEffort": "high",
+
+  "autoSend": {
+    "minConfidence": 0.82,
+    "categories": [
+      "scheduling",
+      "acknowledgment",
+      "faq",
+      "logistics",
+      "thanks"
+    ],
+    "blockIfBodyMatches": [
+      "\\$\\s?\\d",
+      "\\b(usd|ngn|gbp|eur)\\b",
+      "\\bnaira\\b",
+      "\\binvoice\\b",
+      "\\bcontract\\b",
+      "\\bdeposit\\b",
+      "\\brefund\\b",
+      "\\bdeadline\\b",
+      "\\bguarantee\\b",
+      "\\bNDA\\b"
+    ],
+    "maxPerDay": 40,
+    "quietHours": { "start": 22, "end": 7, "timezone": "Africa/Lagos" }
+  },
+
+  "voice": {
+    "signOff": "Chima",
+    "notes": [
+      "Warm but efficient. No corporate filler.",
+      "Short paragraphs. No bullet lists unless listing real options.",
+      "Never invent a price, a rate, a timeline, or a commitment.",
+      "If something needs a decision only Chima can make, say it will follow shortly rather than guessing."
+    ],
+    "signature": "Chima Mba\nProduct & Interface Design\nchima.nuel.mba@gmail.com"
+  },
+
+  "outreach": {
+    "enabled": true,
+    "maxNewContactsPerDay": 20,
+    "minSecondsBetweenSends": 180,
+    "jitterSeconds": 120,
+    "followUpDelaysDays": [4, 9],
+    "maxFollowUps": 2,
+    "requireApprovalForFirstTouch": true,
+    "stopOnReply": true
+  },
+
+  "ignore": {
+    "fromPatterns": [
+      "noreply@",
+      "no-reply@",
+      "donotreply@",
+      "notifications@",
+      "mailer-daemon@",
+      "postmaster@",
+      "@bounce\\.",
+      "calendar-notification@google\\.com"
+    ],
+    "subjectPatterns": [
+      "^\\s*(out of office|automatic reply|auto[- ]?reply)",
+      "^\\s*undeliverable",
+      "unsubscribe confirmation"
+    ],
+    "gmailLabelsToSkip": ["SPAM", "TRASH", "CATEGORY_PROMOTIONS", "CATEGORY_SOCIAL"]
+  }
+}

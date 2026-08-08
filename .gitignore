@@ -1,0 +1,14 @@
+node_modules/
+dist/
+*.log
+
+# Secrets — never commit these
+.env
+.env.local
+credentials.json
+token.json
+data/
+
+# OS
+.DS_Store
+Thumbs.db

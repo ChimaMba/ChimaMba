@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inbox Agent</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<div id="login" class="gate" hidden>
+  <form id="login-form" class="gate-card">
+    <h1>Inbox Agent</h1>
+    <p class="muted">Enter the dashboard password.</p>
+    <input type="password" id="password" autocomplete="current-password" placeholder="Password" required>
+    <button type="submit">Unlock</button>
+    <p class="error" id="login-error" hidden></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <div class="brand">
+      <span class="dot"></span>
+      <div>
+        <strong>Inbox Agent</strong>
+        <span class="muted" id="owner"></span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="pill" id="autonomy-pill"></span>
+      <button id="run-now" class="ghost">Check inbox now</button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <section class="stats" id="stats"></section>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="queue">Review queue <span class="count" id="queue-count">0</span></button>
+    <button class="tab" data-tab="activity">Activity</button>
+    <button class="tab" data-tab="outreach">Outreach</button>
+  </nav>
+
+  <main>
+    <section id="tab-queue" class="panel active">
+      <div id="queue"></div>
+    </section>
+
+    <section id="tab-activity" class="panel">
+      <div id="activity"></div>
+    </section>
+
+    <section id="tab-outreach" class="panel">
+      <div class="card">
+        <h2>New campaign</h2>
+        <form id="campaign-form" class="stack">
+          <label>Name <input name="name" placeholder="Q3 studio outreach" required></label>
+          <label>Goal
+            <textarea name="goal" rows="2" required
+              placeholder="Book a 15-minute intro call with design leads at early-stage fintech startups."></textarea>
+          </label>
+          <label>What you're offering
+            <textarea name="offer" rows="2"
+              placeholder="A free teardown of their onboarding flow, no strings."></textarea>
+          </label>
+          <label>Tone <input name="tone" placeholder="Direct, warm, no sales language"></label>
+          <button type="submit">Create campaign</button>
+        </form>
+      </div>
+
+      <div id="campaigns"></div>
+    </section>
+  </main>
+</div>
+
+<template id="draft-template">
+  <article class="card draft">
+    <div class="draft-head">
+      <div>
+        <span class="badge" data-field="kind"></span>
+        <span class="badge subtle" data-field="category"></span>
+        <span class="badge subtle" data-field="confidence"></span>
+      </div>
+      <time data-field="created"></time>
+    </div>
+    <div class="draft-meta">
+      <span class="muted">To</span> <strong data-field="to"></strong>
+    </div>
+    <p class="reason" data-field="reason"></p>
+    <div class="flags" data-field="flags"></div>
+    <label class="field">Subject <input data-field="subject"></label>
+    <label class="field">Body <textarea data-field="body" rows="10"></textarea></label>
+    <div class="assumptions" data-field="assumptions" hidden></div>
+    <div class="draft-actions">
+      <button class="primary" data-action="approve">Send</button>
+      <button class="ghost" data-action="save">Save edit</button>
+      <button class="danger" data-action="reject">Discard</button>
+      <span class="status" data-field="status"></span>
+    </div>
+  </article>
+</template>
+
+<script src="/app.js"></script>
+</body>
+</html>
