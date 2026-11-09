@@ -58,7 +58,7 @@ export const Palette: React.FC = () => {
         </div>
 
         {cards.map((c, i) => {
-          const st = 10 + i * 8;
+          const st = 10 + i * 10; // cards enter on eighth notes
           // continuous push-in on the product after it lands
           const push = interpolate(frame, [st + 30, 150], [1, 1.035], clamp);
           return (

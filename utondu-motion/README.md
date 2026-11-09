@@ -8,13 +8,30 @@ Motion design for the UTONDU brand identity ("The Comfort of Life"), built in [R
 |---|---|---|---|
 | `UTONDU_LogoSting.mp4` | 1920×1080 · 30fps | 7s | Cream ground, chocolate wordmark |
 | `UTONDU_LogoStingDark.mp4` | 1920×1080 · 30fps | 7s | Chocolate ground, White Rock wordmark |
-| `UTONDU_Sizzle.mp4` | 1920×1080 · 30fps | 38s | Sting → Statement → Construction → Colour → Type → Lifestyle → Product → Applications → End card |
-| `UTONDU_SocialVertical.mp4` | 1080×1920 · 30fps | 20s | Reels / TikTok / Stories cutdown |
-| `UTONDU_SocialSquare.mp4` | 1080×1080 · 30fps | 20s | Feed / LinkedIn cutdown |
+| `UTONDU_Sizzle.mp4` | 1920×1080 · 30fps | 38.7s | Sting → Statement → Construction → Colour → Type → Lifestyle → Product → Applications → End card |
+| `UTONDU_SocialVertical.mp4` | 1080×1920 · 30fps | 20.7s | Reels / TikTok / Stories cutdown |
+| `UTONDU_SocialSquare.mp4` | 1080×1080 · 30fps | 20.7s | Feed / LinkedIn cutdown |
 
 Motion guidelines: `motion-guidelines.html` (open in a browser — live demos of the build, easing curves and transitions).
 
-All videos are silent so they can be cut to any track. Stings end on a ≥ 2s hold of the master lockup for a clean out-point.
+All videos carry an original score (AAC 320 kbps, −16 LUFS, peaks below −1.5 dBFS). Stings end on a ≥ 2s hold of the master lockup for a clean out-point.
+
+## Music
+
+The score is original, composed in code (`scripts/score.py`) against the edit itself, so there is nothing to license and every cue lands on its frame.
+
+- **90 BPM at 30 fps**: one beat is exactly 20 frames, the length of every transition, and one bar is 80 frames. Every scene length is a whole number of beats, so every cut lands on the beat.
+- **Key of D**, one chord per bar: Dmaj9 · Bm11 · Gmaj9 · Asus2, resolving home to Dmaj9 under the end card.
+- **Voices**: Rhodes-style FM electric piano, filtered analogue pad, sine sub bass, soft kit (kick, shaker, rim), FM bell, noise whooshes and sub impacts, through a shared reverb.
+- **Arrangement**: an intimate intro under the sting, with one piano note per letter as it draws and a bell as the U lands as the n. The groove enters on the first cut. Act 2 adds shaker and rim. The drums breathe out at the start of the lifestyle scene and return as the panel glides across. Act 3 adds an octave-up piano lift over the mockups, with a hit on every wipe. Everything resolves to Dmaj9 with bells on the final lockup.
+
+To change a scene length, change it in the edit and in `EDITS` in `scripts/score.py`, then run:
+
+```bash
+python3 -I scripts/check_sync.py   # edit and score agree, all on the beat grid
+python3 -I scripts/score.py        # regenerates public/audio/score-*.wav
+```
+
 
 ## Creative direction
 

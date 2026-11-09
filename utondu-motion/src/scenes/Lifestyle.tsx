@@ -44,7 +44,7 @@ const beats = [
     ],
   },
 ];
-const SWAP = 86; // frame the panel starts to move
+const SWAP = 80; // the panel starts to move on beat 4
 const SWAP_LEN = 28;
 
 // Centerline of the big U, used to reveal it with a stroke mask (page coords).
@@ -58,7 +58,9 @@ const U_GUIDE = `M ${lx} ${bigU.y0 - 4} V ${by - r} A ${r} ${r} 0 0 0 ${lx + r} 
 export const Lifestyle: React.FC = () => {
   const frame = useCurrentFrame();
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const { width, height, landscape, u } = useLayout();
+  const { width, height, landscape, portrait, u } = useLayout();
+  // 16:9 and 1:1 use the board's side-by-side split; 9:16 stacks panel and photo.
+  const side = !portrait;
   const e = (
     f0: number,
     f1: number,
@@ -72,29 +74,33 @@ export const Lifestyle: React.FC = () => {
   // --- geometry -------------------------------------------------------------
   // 16:9 is wider than the A4 board: scale the U 11% past height-fit so it spans
   // the same share of the panel + photo as on the board (bottom curve at ~80%).
-  const s = landscape
-    ? (height / bigU.page.height) * 1.11
+  const s = side
+    ? (height / bigU.page.height) * (landscape ? 1.11 : 0.95) // square: keep both legs partly in frame
     : (width * 1.15) / (bigU.x1 - bigU.x0);
-  const ts = landscape ? height / bigU.page.height : s; // type scale stays height-fit
-  const uLeft = landscape
+  const ts = side ? height / bigU.page.height : s; // type scale stays height-fit
+  const uLeft = side
     ? width / 2 + (bigU.x0 - SPLIT_PAGE) * s + U_SHIFT_P11 * s * swap
     : width / 2 - ((bigU.x0 + bigU.x1) / 2) * s;
   const uTop = e(0, 180, 0, -14 * u, ease.glide); // slow parallax drift
 
-  const panelSize = landscape
+  const panelSize = side
     ? { w: width / 2, h: height }
     : { w: width, h: height * 0.46 };
-  const panelPos = landscape
+  const panelPos = side
     ? { x: swap * (width / 2), y: 0 }
     : { x: 0, y: (1 - swap) * (height - panelSize.h) };
-  const photoA = landscape
+  const photoA = side
     ? { x: width / 2, y: 0, w: width / 2, h: height }
     : { x: 0, y: 0, w: width, h: height - panelSize.h };
-  const photoB = landscape
+  const photoB = side
     ? { x: 0, y: 0, w: width / 2, h: height }
     : { x: 0, y: panelSize.h, w: width, h: height - panelSize.h };
 
-  const textSize = landscape ? Math.max(31 * ts, 44 * u) : 50 * u;
+  const textSize = landscape
+    ? Math.max(31 * ts, 44 * u)
+    : side
+      ? 33 * u
+      : 50 * u;
 
   return (
     <AbsoluteFill style={{ backgroundColor: PANEL }}>
@@ -147,11 +153,11 @@ export const Lifestyle: React.FC = () => {
         <div
           style={{
             position: "absolute",
-            top: landscape ? 69 * ts : 56 * u,
+            top: side ? 69 * ts : 56 * u,
             left: 0,
             right: 0,
             textAlign: "center",
-            fontSize: landscape ? Math.max(13 * ts, 18 * u) : 24 * u,
+            fontSize: side ? Math.max(13 * ts, 18 * u) : 24 * u,
             fontWeight: 500,
             lineHeight: 1.15,
             letterSpacing: "0.02em",
@@ -172,7 +178,7 @@ export const Lifestyle: React.FC = () => {
                 position: "absolute",
                 left: 0,
                 right: 0,
-                top: landscape ? "54%" : "52%",
+                top: side ? "54%" : "55%",
                 translate: "0 -50%",
                 textAlign: "center",
                 fontSize: textSize,

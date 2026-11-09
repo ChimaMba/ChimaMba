@@ -24,9 +24,9 @@ export const LogoSting: React.FC<StingProps> = ({ theme }) => {
 
   const drawStart = 10;
   const draw = [0, 1, 2, 3, 4, 5].map((i) =>
-    interpolate(frame, [drawStart + i * 7, drawStart + i * 7 + t.slow], [0, 1], { ...clamp, easing: ease.draw }),
+    interpolate(frame, [drawStart + i * 5, drawStart + i * 5 + t.slow], [0, 1], { ...clamp, easing: ease.draw }),
   );
-  const turnStart = 64;
+  const turnStart = 60; // beat 3 at 90 BPM (20 frames per beat)
 
   return (
     <AbsoluteFill style={{ backgroundColor: bg, justifyContent: "center", alignItems: "center" }}>
@@ -47,7 +47,7 @@ export const LogoSting: React.FC<StingProps> = ({ theme }) => {
           turn={interpolate(frame, [turnStart, turnStart + t.turn], [0, 1], { ...clamp, easing: ease.glide })}
           tracking={interpolate(frame, [0, 100], [1.16, 1], { ...clamp, easing: ease.settle })}
         />
-        <TaglineArt width={wordmarkWidth} start={96} color={muted} />
+        <TaglineArt width={wordmarkWidth} start={100} color={muted} />
       </div>
     </AbsoluteFill>
   );
