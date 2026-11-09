@@ -14,7 +14,8 @@ python3 -I scripts/gen_master_artwork.py "$TMP/outlines.json" > src/masterArtwor
 pdftocairo -svg -f 10 -l 10 "$PDF" "$TMP/page10.svg"
 python3 -I scripts/gen_big_u.py "$TMP/page10.svg" > src/bigU.ts
 mkdir -p "$TMP/img"
-pdfimages -png -j -p "$PDF" "$TMP/img/im"   
+# whole document, so image numbers match the names the scripts expect
+pdfimages -png -j -p "$PDF" "$TMP/img/im"
 python3 -I scripts/clean_tables_photo.py "$TMP/img"
 python3 -I scripts/build_palette_cards.py "$TMP/img" public/images
 rm -rf "$TMP"
