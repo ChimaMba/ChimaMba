@@ -8,3 +8,6 @@ out
 
 # Remotion bundle
 build
+
+# Python
+__pycache__/
