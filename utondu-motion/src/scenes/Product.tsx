@@ -6,7 +6,7 @@ import { FooterRow, MaskLine, useLayout } from "../shared";
 
 /**
  * PRODUCT — "Crafted for living / Spaces shaped for comfort" (brand board, page 7).
- * Image: sofa from the cover page. Swap public/images/sofa.png for a high-res
+ * Image: sofa from the cover page. Swap public/images/sofa.jpg for a high-res
  * product shot on a #F2EDE7 ground for final delivery.
  */
 export const Product: React.FC = () => {
@@ -50,7 +50,7 @@ export const Product: React.FC = () => {
           )}
         />
         <Img
-          src={staticFile("images/sofa.png")}
+          src={staticFile("images/sofa.jpg")}
           style={{
             width: sofaW,
             opacity: interpolate(frame, [10, 40], [0, 1], { ...clamp, easing: ease.settle }),

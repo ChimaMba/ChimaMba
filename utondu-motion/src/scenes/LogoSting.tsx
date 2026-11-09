@@ -1,8 +1,8 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { clamp, colors, ease, t } from "../brand";
-import { Wordmark } from "../Wordmark";
-import { Tagline, useLayout, WarmLight } from "../shared";
+import { TaglineArt, Wordmark } from "../Wordmark";
+import { useLayout, WarmLight } from "../shared";
 
 export type StingProps = { theme: "light" | "dark" };
 
@@ -16,7 +16,7 @@ export type StingProps = { theme: "light" | "dark" };
  */
 export const LogoSting: React.FC<StingProps> = ({ theme }) => {
   const frame = useCurrentFrame();
-  const { wordmarkWidth, u } = useLayout();
+  const { wordmarkWidth } = useLayout();
   const dark = theme === "dark";
   const bg = dark ? colors.chocolate : colors.cream;
   const ink = dark ? colors.whiteRock : colors.ink;
@@ -47,13 +47,7 @@ export const LogoSting: React.FC<StingProps> = ({ theme }) => {
           turn={interpolate(frame, [turnStart, turnStart + t.turn], [0, 1], { ...clamp, easing: ease.glide })}
           tracking={interpolate(frame, [0, 100], [1.16, 1], { ...clamp, easing: ease.settle })}
         />
-        <Tagline
-          text="THE COMFORT OF LIFE"
-          start={96}
-          fontSize={wordmarkWidth * 0.046}
-          color={muted}
-          style={{ marginTop: wordmarkWidth * 0.045 + 6 * u }}
-        />
+        <TaglineArt width={wordmarkWidth} start={96} color={muted} />
       </div>
     </AbsoluteFill>
   );

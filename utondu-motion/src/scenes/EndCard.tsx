@@ -1,8 +1,8 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { clamp, colors, ease } from "../brand";
-import { Wordmark } from "../Wordmark";
-import { FooterRow, Tagline, useLayout, WarmLight } from "../shared";
+import { TaglineArt, Wordmark } from "../Wordmark";
+import { FooterRow, useLayout, WarmLight } from "../shared";
 
 /** END CARD — master lockup, quick redraw, footer. */
 export const EndCard: React.FC = () => {
@@ -22,13 +22,7 @@ export const EndCard: React.FC = () => {
         )}
         tracking={interpolate(frame, [0, 60], [1.08, 1], { ...clamp, easing: ease.settle })}
       />
-      <Tagline
-        text="THE COMFORT OF LIFE"
-        start={30}
-        fontSize={wordmarkWidth * 0.046}
-        color={colors.muted}
-        style={{ marginTop: wordmarkWidth * 0.045 + 6 * u }}
-      />
+      <TaglineArt width={wordmarkWidth} start={30} color={colors.muted} />
       </div>
       <FooterRow
         start={50}

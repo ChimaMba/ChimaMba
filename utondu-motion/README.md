@@ -8,9 +8,9 @@ Motion design for the UTONDU brand identity ("The Comfort of Life"), built in [R
 |---|---|---|---|
 | `UTONDU_LogoSting.mp4` | 1920×1080 · 30fps | 7s | Cream ground, chocolate wordmark |
 | `UTONDU_LogoStingDark.mp4` | 1920×1080 · 30fps | 7s | Chocolate ground, White Rock wordmark |
-| `UTONDU_Sizzle.mp4` | 1920×1080 · 30fps | 29s | Sting → Statement → Construction → Colour → Type → Product → End card |
-| `UTONDU_SocialVertical.mp4` | 1080×1920 · 30fps | 18s | Reels / TikTok / Stories cutdown |
-| `UTONDU_SocialSquare.mp4` | 1080×1080 · 30fps | 18s | Feed / LinkedIn cutdown |
+| `UTONDU_Sizzle.mp4` | 1920×1080 · 30fps | 36s | Sting → Statement → Construction → Colour → Type → Lifestyle → Product → Applications → End card |
+| `UTONDU_SocialVertical.mp4` | 1080×1920 · 30fps | 19s | Reels / TikTok / Stories cutdown |
+| `UTONDU_SocialSquare.mp4` | 1080×1080 · 30fps | 19s | Feed / LinkedIn cutdown |
 
 Motion guidelines: `motion-guidelines.html` (open in a browser — live demos of the build, easing curves and transitions).
 
@@ -24,17 +24,19 @@ Motion follows the brand line *The Comfort of Life*: a confident start that ease
 
 ## Brand source
 
-Pulled from the UTONDU brand board in Figma (page *UTONDU*):
+Everything comes from `Utondu Brand identify for motion.pdf` (the brand board, exported from Figma):
 
-- Wordmark rebuilt from the master artwork: letter 1.29:1, stroke 0.135H, outer radius 0.41H, flat stroke ends, square left corners on the D, clear space ½H (`src/Wordmark.tsx`).
+- **Wordmark and tagline are the master artwork.** The outlines are extracted from page 2 of the PDF into `src/masterArtwork.ts` (regenerate with `./scripts/extract-master.sh` rather than editing by hand). Animated stroke masks reveal the artwork, so every finished frame is the approved master exactly. The *n* is the master *U* turned 180°; the master *n* crossfades in over the last 10% of the turn.
 - Colours: Chocolate Brown `#372922`, White Rock `#E7DBCF`, Foggy Grey `#E4E0DA`, cover cream `#F2EDE7` (`src/brand.ts`).
-- Copy: "THE COMFORT OF LIFE", "YOUR SPACE, YOUR STORY.", "WARMTH · BALANCE · AND TIMELESS LIVING", "CRAFTED FOR LIVING", "SPACES SHAPED FOR COMFORT", "COMFORT · LIVING · DESIGN".
+- Imagery (`public/images/`): cover sofa, statement chair, interior photography (pages 10–11) and the tote, business-card, billboard and lightbox mockups (pages 13–18).
+- Copy: "THE COMFORT OF LIFE", "YOUR SPACE, YOUR STORY.", "WARMTH · BALANCE · AND TIMELESS", "CRAFTED FOR MODERN LIVING WITH TIMELESS ELEGANCE AND COMFORT.", "WHERE THOUGHTFUL DESIGN MEETS DISTINCTIVE CHARACTER AND PURPOSE", "COMFORT · LIVING · DESIGN".
+
+Third-party product photos that carry other brands' marks (the "RSAKA" text on the cover photo, the logo on the "Redefining Comfort" image) are cropped out or left unused.
 
 ### Before final delivery
 
-1. **Typeface** — the brand face is Suisse Intl (commercial). Inter is used as a stand-in. Put licensed Suisse Intl Thin/Light/Regular `.woff2` files in `public/fonts/` and update `fontFiles` in `src/fonts.ts`.
-2. **Product photography** — `public/images/sofa.png` is cut from the cover page preview and is lower resolution than ideal for 1080p. Replace it with the high-res cover sofa on a `#F2EDE7` ground (same filename).
-3. **Wordmark master** — the wordmark is reconstructed to the board's measurements. Overlay it against an SVG export of the master artwork once to sign it off.
+1. **Typeface** — supporting type uses Inter as a stand-in for Suisse Intl (commercial). The wordmark and tagline are already the real artwork. Put licensed Suisse Intl Thin/Light/Regular `.woff2` files in `public/fonts/` and update `fontFiles` in `src/fonts.ts`.
+2. **Image licences** — confirm usage rights for the stock/AI product and lifestyle photography before publishing.
 
 ## Working on it
 
@@ -49,7 +51,8 @@ Compositions: `Deliverables/` (LogoSting, LogoStingDark, Sizzle, SocialVertical,
 | Path | What |
 |---|---|
 | `src/brand.ts` | Colour, easing and timing tokens |
-| `src/Wordmark.tsx` | Stroke-built wordmark with per-letter draw, turn and tracking |
+| `src/Wordmark.tsx` | Master wordmark + tagline with per-letter draw, turn and tracking |
+| `src/masterArtwork.ts` | Wordmark and tagline outlines extracted from the brand PDF |
 | `src/transitions.tsx` | O-iris and Lift scene transitions |
-| `src/scenes/*` | LogoSting, Statement, Construction, Palette, Typography, Product, EndCard |
+| `src/scenes/*` | LogoSting, Statement, Construction, Palette, Typography, Lifestyle, Product, Applications, EndCard |
 | `src/Sizzle.tsx`, `src/Social.tsx` | Edits — scene order and durations |
