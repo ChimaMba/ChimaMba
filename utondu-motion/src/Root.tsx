@@ -30,7 +30,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition id="Construction" component={Construction} durationInFrames={150} {...HD} />
         <Composition id="Palette" component={Palette} durationInFrames={150} {...HD} />
         <Composition id="Typography" component={Typography} durationInFrames={150} {...HD} />
-        <Composition id="Lifestyle" component={Lifestyle} durationInFrames={150} {...HD} />
+        <Composition id="Lifestyle" component={Lifestyle} durationInFrames={180} {...HD} />
         <Composition id="Product" component={Product} durationInFrames={150} {...HD} />
         <Composition id="Applications" component={Applications} durationInFrames={180} {...HD} />
         <Composition id="EndCard" component={EndCard} durationInFrames={120} {...HD} />

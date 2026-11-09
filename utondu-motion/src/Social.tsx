@@ -9,8 +9,8 @@ import { Applications } from "./scenes/Applications";
 import { EndCard } from "./scenes/EndCard";
 import { t } from "./brand";
 
-/** Social cutdown (9:16 Reels/TikTok, 1:1 feed) — 19s. Scenes re-flow by aspect ratio. */
-export const SOCIAL_DURATION = 130 + 100 + 150 + 180 + 100 - 4 * t.transition;
+/** Social cutdown (9:16 Reels/TikTok, 1:1 feed) — 20s. Scenes re-flow by aspect ratio. */
+export const SOCIAL_DURATION = 130 + 100 + 180 + 180 + 100 - 4 * t.transition;
 
 export const Social: React.FC = () => (
   <TransitionSeries>
@@ -22,7 +22,7 @@ export const Social: React.FC = () => (
       <Statement />
     </TransitionSeries.Sequence>
     <TransitionSeries.Transition presentation={oIris()} timing={brandTiming} />
-    <TransitionSeries.Sequence name="Lifestyle" durationInFrames={150}>
+    <TransitionSeries.Sequence name="Lifestyle" durationInFrames={180}>
       <Lifestyle />
     </TransitionSeries.Sequence>
     <TransitionSeries.Transition presentation={lift()} timing={brandTiming} />

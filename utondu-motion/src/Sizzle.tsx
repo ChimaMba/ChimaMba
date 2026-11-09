@@ -14,11 +14,11 @@ import { EndCard } from "./scenes/EndCard";
 import { t } from "./brand";
 
 /**
- * 16:9 brand sizzle — 36s.
+ * 16:9 brand sizzle — 38s.
  * Act 1 (who we are): sting → statement.  Act 2 (the system): construction → colour → type.
  * Act 3 (the world): lifestyle → product → applications.  Close: end card.
  */
-export const SIZZLE_DURATION = 150 + 120 + 150 + 130 + 120 + 150 + 120 + 180 + 120 - 8 * t.transition;
+export const SIZZLE_DURATION = 150 + 120 + 150 + 150 + 120 + 180 + 120 + 180 + 120 - 8 * t.transition;
 
 export const Sizzle: React.FC = () => (
   <TransitionSeries>
@@ -34,7 +34,7 @@ export const Sizzle: React.FC = () => (
       <Construction />
     </TransitionSeries.Sequence>
     <TransitionSeries.Transition presentation={lift()} timing={brandTiming} />
-    <TransitionSeries.Sequence name="Palette" durationInFrames={130}>
+    <TransitionSeries.Sequence name="Palette" durationInFrames={150}>
       <Palette />
     </TransitionSeries.Sequence>
     <TransitionSeries.Transition presentation={oIris()} timing={brandTiming} />
@@ -42,7 +42,7 @@ export const Sizzle: React.FC = () => (
       <Typography />
     </TransitionSeries.Sequence>
     <TransitionSeries.Transition presentation={lift()} timing={brandTiming} />
-    <TransitionSeries.Sequence name="Lifestyle" durationInFrames={150}>
+    <TransitionSeries.Sequence name="Lifestyle" durationInFrames={180}>
       <Lifestyle />
     </TransitionSeries.Sequence>
     <TransitionSeries.Transition presentation={oIris()} timing={brandTiming} />
