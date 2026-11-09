@@ -1,0 +1,152 @@
+{
+ "page": 9,
+ "width": 1123.2,
+ "height": 796.8,
+ "plate": "plate.jpg",
+ "elements": [
+  {
+   "id": "e000",
+   "kind": "graphic",
+   "text": null,
+   "file": "e000.png",
+   "x": 270.4,
+   "y": 111.77,
+   "w": 91.85,
+   "h": 72.3,
+   "colour": "#4B352C",
+   "z": 3.001
+  },
+  {
+   "id": "e001",
+   "kind": "graphic",
+   "text": null,
+   "file": "e001.png",
+   "x": 65.29,
+   "y": 111.04,
+   "w": 92.22,
+   "h": 73.04,
+   "colour": "#4B352C",
+   "z": 5.001
+  },
+  {
+   "id": "e002",
+   "kind": "graphic",
+   "text": null,
+   "file": "e002.png",
+   "x": 577.31,
+   "y": 111.04,
+   "w": 92.22,
+   "h": 73.04,
+   "colour": "#4B352C",
+   "z": 7.001
+  },
+  {
+   "id": "e003",
+   "kind": "graphic",
+   "text": null,
+   "file": "e003.png",
+   "x": 372.58,
+   "y": 111.04,
+   "w": 92.22,
+   "h": 73.04,
+   "colour": "#4B352C",
+   "z": 9.001
+  },
+  {
+   "id": "e004",
+   "kind": "graphic",
+   "text": null,
+   "file": "e004.png",
+   "x": 475.13,
+   "y": 110.67,
+   "w": 91.85,
+   "h": 73.41,
+   "colour": "#4B352C",
+   "z": 11.001
+  },
+  {
+   "id": "e005",
+   "kind": "graphic",
+   "text": null,
+   "file": "e005.png",
+   "x": 167.84,
+   "y": 111.04,
+   "w": 92.22,
+   "h": 73.04,
+   "colour": "#4B352C",
+   "z": 13.001
+  },
+  {
+   "id": "e011",
+   "kind": "image",
+   "text": null,
+   "file": "e011.png",
+   "x": 471.44,
+   "y": 448.2,
+   "w": 195.88,
+   "h": 94.07,
+   "colour": null,
+   "z": 15
+  },
+  {
+   "id": "e009",
+   "kind": "image",
+   "text": null,
+   "file": "e009.png",
+   "x": 588.75,
+   "y": 433.08,
+   "w": 534.52,
+   "h": 173.75,
+   "colour": null,
+   "z": 16
+  },
+  {
+   "id": "e010",
+   "kind": "image",
+   "text": null,
+   "file": "e010.png",
+   "x": 428.28,
+   "y": 142.76,
+   "w": 694.99,
+   "h": 654.04,
+   "colour": null,
+   "z": 17
+  },
+  {
+   "id": "e006",
+   "kind": "text",
+   "text": "THE COMFORT OF LIFE",
+   "file": "e006.png",
+   "x": 67.14,
+   "y": 211.74,
+   "w": 396.56,
+   "h": 27.67,
+   "colour": "#4B352C",
+   "z": 18.001
+  },
+  {
+   "id": "e007",
+   "kind": "text",
+   "text": "DESIGNED FOR THE",
+   "file": "e007.png",
+   "x": 52.75,
+   "y": 655.88,
+   "w": 334.58,
+   "h": 32.46,
+   "colour": "#9A8781",
+   "z": 19.002
+  },
+  {
+   "id": "e008",
+   "kind": "text",
+   "text": "WAY YOU LIVE.",
+   "file": "e008.png",
+   "x": 50.54,
+   "y": 688.35,
+   "w": 245.31,
+   "h": 42.05,
+   "colour": "#9A8781",
+   "z": 19.002
+  }
+ ]
+}

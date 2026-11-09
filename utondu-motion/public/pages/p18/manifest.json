@@ -1,0 +1,20 @@
+{
+ "page": 18,
+ "width": 1123.2,
+ "height": 796.8,
+ "plate": "plate.jpg",
+ "elements": [
+  {
+   "id": "e000",
+   "kind": "image",
+   "text": null,
+   "file": "e000.png",
+   "x": 0.0,
+   "y": 0.0,
+   "w": 1123.27,
+   "h": 796.8,
+   "colour": null,
+   "z": 2
+  }
+ ]
+}

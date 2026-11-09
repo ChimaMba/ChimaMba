@@ -1,0 +1,116 @@
+{
+ "page": 12,
+ "width": 1123.2,
+ "height": 796.8,
+ "plate": "plate.jpg",
+ "elements": [
+  {
+   "id": "e008",
+   "kind": "image",
+   "text": null,
+   "file": "e008.png",
+   "x": 450.78,
+   "y": 0.0,
+   "w": 672.48,
+   "h": 796.8,
+   "colour": null,
+   "z": 2
+  },
+  {
+   "id": "e000",
+   "kind": "text",
+   "text": "THE COMFORT OF LIFE",
+   "file": "e000.png",
+   "x": 0.0,
+   "y": 0.0,
+   "w": 561.82,
+   "h": 796.8,
+   "colour": "#4B352C",
+   "z": 3.001
+  },
+  {
+   "id": "e001",
+   "kind": "graphic",
+   "text": null,
+   "file": "e001.png",
+   "x": 131.69,
+   "y": 402.83,
+   "w": 70.46,
+   "h": 93.7,
+   "colour": "#E7DBCF",
+   "z": 4.001
+  },
+  {
+   "id": "e002",
+   "kind": "graphic",
+   "text": null,
+   "file": "e002.png",
+   "x": 130.96,
+   "y": 607.56,
+   "w": 71.2,
+   "h": 93.7,
+   "colour": "#E7DBCF",
+   "z": 6.001
+  },
+  {
+   "id": "e003",
+   "kind": "graphic",
+   "text": null,
+   "file": "e003.png",
+   "x": 130.96,
+   "y": 95.54,
+   "w": 71.2,
+   "h": 93.7,
+   "colour": "#E7DBCF",
+   "z": 8.001
+  },
+  {
+   "id": "e004",
+   "kind": "graphic",
+   "text": null,
+   "file": "e004.png",
+   "x": 130.96,
+   "y": 300.64,
+   "w": 71.2,
+   "h": 93.7,
+   "colour": "#E7DBCF",
+   "z": 10.001
+  },
+  {
+   "id": "e005",
+   "kind": "graphic",
+   "text": null,
+   "file": "e005.png",
+   "x": 130.59,
+   "y": 198.09,
+   "w": 71.56,
+   "h": 93.7,
+   "colour": "#E7DBCF",
+   "z": 12.001
+  },
+  {
+   "id": "e006",
+   "kind": "graphic",
+   "text": null,
+   "file": "e006.png",
+   "x": 130.96,
+   "y": 505.01,
+   "w": 71.2,
+   "h": 94.07,
+   "colour": "#E7DBCF",
+   "z": 14.001
+  },
+  {
+   "id": "e007",
+   "kind": "text",
+   "text": "THE COMFORT OF LIFE",
+   "file": "e007.png",
+   "x": 248.63,
+   "y": 205.47,
+   "w": 25.82,
+   "h": 399.51,
+   "colour": "#E7DBCF",
+   "z": 16.001
+  }
+ ]
+}

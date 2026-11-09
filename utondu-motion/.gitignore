@@ -11,3 +11,6 @@ build
 
 # Python
 __pycache__/
+
+# page-decomposition QA heat maps
+public/pages/*/_diff.png

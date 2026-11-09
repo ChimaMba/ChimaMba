@@ -4,27 +4,25 @@ import { clamp, colors, ease } from "../brand";
 import { Wordmark } from "../Wordmark";
 import { FooterRow, useLayout } from "../shared";
 
-const shots = [
-  "images/mockup-tote.jpg",
-  "images/mockup-cards.jpg",
-  "images/mockup-billboard.jpg",
-  "images/mockup-lightbox.jpg",
-];
+/** Brand-board application pages: tote, business cards, brochure, billboard, lightbox. */
+export const APPLICATION_PAGES = [13, 14, 15, 17, 18];
+const shots = APPLICATION_PAGES.map((p) => `pages/p${String(p).padStart(2, "0")}/full.jpg`);
+const PAGE_RATIO = 1123.2 / 796.8;
 /** One shot every two beats at 90 BPM (20 frames per beat). */
 export const SHOT = 40;
 const WIPE = 10; // half-length of the wipe; each wipe is centred on its beat
 
 /**
- * APPLICATIONS — the identity in the world (brand board pages 13–18).
- * 16:9: full-bleed mockups. 9:16 / 1:1: the mockups sit as rounded 4:3 plates
- * (nothing is cropped away), framed by the master wordmark and the footer row.
+ * APPLICATIONS — the identity in the world (brand board pages 13, 14, 15, 17, 18).
+ * 16:9: full-bleed pages. 9:16 / 1:1: each page sits as a rounded plate at the
+ * board's own ratio (nothing is cropped away), framed by the wordmark and footer.
  */
 export const Applications: React.FC = () => {
   const frame = useCurrentFrame();
   const { landscape, portrait, u, width, height } = useLayout();
   const pad = 70 * u;
   const plateW = width - pad * 2;
-  const plateH = (plateW * 3) / 4;
+  const plateH = plateW / PAGE_RATIO;
 
   const plates = shots.map((src, i) => {
     const start = i * SHOT;

@@ -1,0 +1,56 @@
+{
+ "page": 15,
+ "width": 1123.2,
+ "height": 796.8,
+ "plate": "plate.jpg",
+ "elements": [
+  {
+   "id": "e003",
+   "kind": "image",
+   "text": null,
+   "file": "e003.png",
+   "x": 80.79,
+   "y": 119.15,
+   "w": 844.02,
+   "h": 586.9,
+   "colour": null,
+   "z": 2
+  },
+  {
+   "id": "e000",
+   "kind": "text",
+   "text": "COMFORT",
+   "file": "e000.png",
+   "x": 62.34,
+   "y": 725.97,
+   "w": 97.39,
+   "h": 16.23,
+   "colour": "#4B352C",
+   "z": 3.001
+  },
+  {
+   "id": "e001",
+   "kind": "text",
+   "text": "LIVING",
+   "file": "e001.png",
+   "x": 526.77,
+   "y": 725.97,
+   "w": 61.6,
+   "h": 16.23,
+   "colour": "#4B352C",
+   "z": 4.001
+  },
+  {
+   "id": "e002",
+   "kind": "text",
+   "text": "DESIGN",
+   "file": "e002.png",
+   "x": 991.94,
+   "y": 725.97,
+   "w": 69.35,
+   "h": 16.23,
+   "colour": "#4B352C",
+   "z": 5.001
+  }
+ ]
+}
