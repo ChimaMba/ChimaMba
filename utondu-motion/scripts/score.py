@@ -290,7 +290,8 @@ def plan_sections(tl):
     sec = dict(total=total)
     sec["groove"] = sc[1]["start"] + (0 if sc[0].get("out") == "cut" else BEAT) if len(sc) > 1 else None
     # act 2 (rim + nylon melody): the identity system in the film, the statement in the social cut
-    sec["a2"] = starts.get("palette") or next((s["start"] for s in pages if s["page"] in (5, 6)), None) or starts.get("statement")
+    sec["a2"] = (starts.get("palette") or next((s["start"] for s in pages if s["page"] in (5, 6)), None)
+                 or starts.get("construction") or starts.get("statement"))
     if starts.get("lifestyle") is not None:
         ls = starts["lifestyle"] + BEAT
         sec["breath"] = (ls, starts["lifestyle"] + 80)
@@ -522,7 +523,7 @@ def master(name, music, sfx, mix):
                     "-ar", str(SR), final], check=True)
     os.remove(tmp)
     os.makedirs(STEMS, exist_ok=True)
-    title = {"film": "BrandFilm", "social": "Social", "sting": "LogoSting"}[name]
+    title = {"film": "BrandFilm", "social": "Reels-LinkedIn", "instagram": "InstagramFeed", "sting": "LogoSting"}[name]
     write_wav(os.path.join(STEMS, f"UTONDU_{title}_music.wav"), music * gain)
     write_wav(os.path.join(STEMS, f"UTONDU_{title}_sfx.wav"), sfx * gain)
     return final
@@ -530,7 +531,7 @@ def master(name, music, sfx, mix):
 
 if __name__ == "__main__":
     ir = reverb_ir()
-    for name in ("film", "social", "sting"):
+    for name in ("film", "social", "instagram", "sting"):
         tl = json.load(open(os.path.join(AUDIO, f"timeline-{name}.json")))
         music, sfx, mix = compose(name, tl, ir)
         path = master(name, music, sfx, mix)

@@ -1,0 +1,663 @@
+{
+ "fps": 30,
+ "transition": 20,
+ "total": 880,
+ "scenes": [
+  {
+   "kind": "sting",
+   "label": "Logo sting",
+   "page": null,
+   "start": 0,
+   "dur": 140,
+   "out": "lift"
+  },
+  {
+   "kind": "versions",
+   "label": "p3 Logo on light and dark",
+   "page": null,
+   "start": 120,
+   "dur": 120,
+   "out": "iris"
+  },
+  {
+   "kind": "construction",
+   "label": "p2 Clear space",
+   "page": null,
+   "start": 220,
+   "dur": 160,
+   "out": "lift"
+  },
+  {
+   "kind": "statement",
+   "label": "p16 Your space, your story",
+   "page": null,
+   "start": 360,
+   "dur": 100,
+   "out": "iris"
+  },
+  {
+   "kind": "lifestyle",
+   "label": "p10–11 Lifestyle",
+   "page": null,
+   "start": 440,
+   "dur": 180,
+   "out": "lift"
+  },
+  {
+   "kind": "plates",
+   "label": "Applications",
+   "page": null,
+   "start": 600,
+   "dur": 200,
+   "out": "fade"
+  },
+  {
+   "kind": "endcard",
+   "label": "End card",
+   "page": null,
+   "start": 780,
+   "dur": 100,
+   "out": null
+  }
+ ],
+ "transitions": [
+  {
+   "frame": 120,
+   "type": "lift",
+   "from": "sting",
+   "to": "versions"
+  },
+  {
+   "frame": 220,
+   "type": "iris",
+   "from": "versions",
+   "to": "construction"
+  },
+  {
+   "frame": 360,
+   "type": "lift",
+   "from": "construction",
+   "to": "statement"
+  },
+  {
+   "frame": 440,
+   "type": "iris",
+   "from": "statement",
+   "to": "lifestyle"
+  },
+  {
+   "frame": 600,
+   "type": "lift",
+   "from": "lifestyle",
+   "to": "plates"
+  },
+  {
+   "frame": 780,
+   "type": "fade",
+   "from": "plates",
+   "to": "endcard"
+  }
+ ],
+ "cues": [
+  {
+   "frame": 10,
+   "kind": "pluck",
+   "pan": -0.5,
+   "weight": 0.5,
+   "scene": 0
+  },
+  {
+   "frame": 15,
+   "kind": "pluck",
+   "pan": -0.3,
+   "weight": 0.5,
+   "scene": 0
+  },
+  {
+   "frame": 20,
+   "kind": "pluck",
+   "pan": -0.09999999999999998,
+   "weight": 0.5,
+   "scene": 0
+  },
+  {
+   "frame": 25,
+   "kind": "pluck",
+   "pan": 0.10000000000000009,
+   "weight": 0.5,
+   "scene": 0
+  },
+  {
+   "frame": 30,
+   "kind": "pluck",
+   "pan": 0.30000000000000004,
+   "weight": 0.5,
+   "scene": 0
+  },
+  {
+   "frame": 35,
+   "kind": "pluck",
+   "pan": 0.5,
+   "weight": 0.5,
+   "scene": 0
+  },
+  {
+   "frame": 60,
+   "kind": "shimmer",
+   "pan": 0,
+   "weight": 0.6,
+   "scene": 0
+  },
+  {
+   "frame": 90,
+   "kind": "bell",
+   "pan": 0,
+   "weight": 0.7,
+   "scene": 0
+  },
+  {
+   "frame": 100,
+   "kind": "shimmer",
+   "pan": 0,
+   "weight": 0.25,
+   "scene": 0
+  },
+  {
+   "frame": 124,
+   "kind": "pluck",
+   "pan": -0.5,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 128,
+   "kind": "pluck",
+   "pan": -0.3,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 132,
+   "kind": "pluck",
+   "pan": -0.09999999999999998,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 136,
+   "kind": "pluck",
+   "pan": 0.10000000000000009,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 140,
+   "kind": "pluck",
+   "pan": 0.30000000000000004,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 144,
+   "kind": "pluck",
+   "pan": 0.5,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 160,
+   "kind": "whoosh",
+   "pan": 0,
+   "weight": 0.7,
+   "scene": 1
+  },
+  {
+   "frame": 170,
+   "kind": "bell",
+   "pan": 0,
+   "weight": 0.4,
+   "scene": 1
+  },
+  {
+   "frame": 182,
+   "kind": "pluck",
+   "pan": -0.5,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 186,
+   "kind": "thud",
+   "pan": 0,
+   "weight": 0.6,
+   "scene": 1
+  },
+  {
+   "frame": 186,
+   "kind": "pluck",
+   "pan": -0.3,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 190,
+   "kind": "pluck",
+   "pan": -0.09999999999999998,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 194,
+   "kind": "pluck",
+   "pan": 0.10000000000000009,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 198,
+   "kind": "pluck",
+   "pan": 0.30000000000000004,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 202,
+   "kind": "pluck",
+   "pan": 0.5,
+   "weight": 0.5,
+   "scene": 1
+  },
+  {
+   "frame": 224,
+   "kind": "sweep",
+   "pan": 0,
+   "weight": 0.5,
+   "scene": 2
+  },
+  {
+   "frame": 232,
+   "kind": "bell",
+   "pan": 0,
+   "weight": 0.55,
+   "scene": 1
+  },
+  {
+   "frame": 246,
+   "kind": "pop",
+   "pan": -0.6,
+   "weight": 0.4,
+   "scene": 2
+  },
+  {
+   "frame": 250,
+   "kind": "pop",
+   "pan": 0.6,
+   "weight": 0.4,
+   "scene": 2
+  },
+  {
+   "frame": 252,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.3,
+   "scene": 2
+  },
+  {
+   "frame": 254,
+   "kind": "pop",
+   "pan": -0.6,
+   "weight": 0.4,
+   "scene": 2
+  },
+  {
+   "frame": 258,
+   "kind": "pop",
+   "pan": 0.6,
+   "weight": 0.4,
+   "scene": 2
+  },
+  {
+   "frame": 312,
+   "kind": "bell",
+   "pan": 0.1,
+   "weight": 0.45,
+   "scene": 2
+  },
+  {
+   "frame": 354,
+   "kind": "bell",
+   "pan": 0.1,
+   "weight": 0.45,
+   "scene": 2
+  },
+  {
+   "frame": 368,
+   "kind": "swoosh",
+   "pan": 0,
+   "weight": 0.6,
+   "scene": 3
+  },
+  {
+   "frame": 370,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.35,
+   "scene": 3
+  },
+  {
+   "frame": 374,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.35,
+   "scene": 3
+  },
+  {
+   "frame": 378,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.35,
+   "scene": 3
+  },
+  {
+   "frame": 380,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 3
+  },
+  {
+   "frame": 382,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.35,
+   "scene": 3
+  },
+  {
+   "frame": 386,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 3
+  },
+  {
+   "frame": 392,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 3
+  },
+  {
+   "frame": 396,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 3
+  },
+  {
+   "frame": 398,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 3
+  },
+  {
+   "frame": 402,
+   "kind": "thud",
+   "pan": 0,
+   "weight": 0.55,
+   "scene": 3
+  },
+  {
+   "frame": 402,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 3
+  },
+  {
+   "frame": 444,
+   "kind": "sweep",
+   "pan": -0.3,
+   "weight": 0.8,
+   "scene": 4
+  },
+  {
+   "frame": 448,
+   "kind": "tick",
+   "pan": -0.4,
+   "weight": 0.22,
+   "scene": 4
+  },
+  {
+   "frame": 452,
+   "kind": "tick",
+   "pan": -0.4,
+   "weight": 0.22,
+   "scene": 4
+  },
+  {
+   "frame": 456,
+   "kind": "tick",
+   "pan": -0.4,
+   "weight": 0.22,
+   "scene": 4
+  },
+  {
+   "frame": 460,
+   "kind": "tick",
+   "pan": -0.4,
+   "weight": 0.22,
+   "scene": 4
+  },
+  {
+   "frame": 520,
+   "kind": "whoosh",
+   "pan": 0,
+   "weight": 0.9,
+   "scene": 4
+  },
+  {
+   "frame": 542,
+   "kind": "tick",
+   "pan": 0.4,
+   "weight": 0.22,
+   "scene": 4
+  },
+  {
+   "frame": 546,
+   "kind": "tick",
+   "pan": 0.4,
+   "weight": 0.22,
+   "scene": 4
+  },
+  {
+   "frame": 548,
+   "kind": "thud",
+   "pan": 0.4,
+   "weight": 0.6,
+   "scene": 4
+  },
+  {
+   "frame": 550,
+   "kind": "tick",
+   "pan": 0.4,
+   "weight": 0.22,
+   "scene": 4
+  },
+  {
+   "frame": 554,
+   "kind": "tick",
+   "pan": 0.4,
+   "weight": 0.22,
+   "scene": 4
+  },
+  {
+   "frame": 602,
+   "kind": "whoosh",
+   "pan": 0,
+   "weight": 0.5,
+   "scene": 5
+  },
+  {
+   "frame": 610,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 5
+  },
+  {
+   "frame": 616,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 5
+  },
+  {
+   "frame": 622,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 5
+  },
+  {
+   "frame": 632,
+   "kind": "swoosh",
+   "pan": 0,
+   "weight": 0.55,
+   "scene": 5
+  },
+  {
+   "frame": 646,
+   "kind": "thud",
+   "pan": 0,
+   "weight": 0.45,
+   "scene": 5
+  },
+  {
+   "frame": 672,
+   "kind": "swoosh",
+   "pan": 0,
+   "weight": 0.55,
+   "scene": 5
+  },
+  {
+   "frame": 686,
+   "kind": "thud",
+   "pan": 0,
+   "weight": 0.45,
+   "scene": 5
+  },
+  {
+   "frame": 712,
+   "kind": "swoosh",
+   "pan": 0,
+   "weight": 0.55,
+   "scene": 5
+  },
+  {
+   "frame": 726,
+   "kind": "thud",
+   "pan": 0,
+   "weight": 0.45,
+   "scene": 5
+  },
+  {
+   "frame": 752,
+   "kind": "swoosh",
+   "pan": 0,
+   "weight": 0.55,
+   "scene": 5
+  },
+  {
+   "frame": 766,
+   "kind": "thud",
+   "pan": 0,
+   "weight": 0.45,
+   "scene": 5
+  },
+  {
+   "frame": 784,
+   "kind": "pluck",
+   "pan": -0.5,
+   "weight": 0.5,
+   "scene": 6
+  },
+  {
+   "frame": 788,
+   "kind": "pluck",
+   "pan": -0.3,
+   "weight": 0.5,
+   "scene": 6
+  },
+  {
+   "frame": 792,
+   "kind": "pluck",
+   "pan": -0.09999999999999998,
+   "weight": 0.5,
+   "scene": 6
+  },
+  {
+   "frame": 796,
+   "kind": "pluck",
+   "pan": 0.10000000000000009,
+   "weight": 0.5,
+   "scene": 6
+  },
+  {
+   "frame": 800,
+   "kind": "pluck",
+   "pan": 0.30000000000000004,
+   "weight": 0.5,
+   "scene": 6
+  },
+  {
+   "frame": 804,
+   "kind": "pluck",
+   "pan": 0.5,
+   "weight": 0.5,
+   "scene": 6
+  },
+  {
+   "frame": 810,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 6
+  },
+  {
+   "frame": 814,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 6
+  },
+  {
+   "frame": 818,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 6
+  },
+  {
+   "frame": 830,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 6
+  },
+  {
+   "frame": 836,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 6
+  },
+  {
+   "frame": 842,
+   "kind": "tick",
+   "pan": 0,
+   "weight": 0.15,
+   "scene": 6
+  }
+ ]
+}

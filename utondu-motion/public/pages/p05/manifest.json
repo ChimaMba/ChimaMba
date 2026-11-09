@@ -9,12 +9,25 @@
    "kind": "image",
    "text": null,
    "file": "e014.png",
+   "cutout": true,
    "x": 585.8,
    "y": 278.14,
    "w": 537.47,
    "h": 518.66,
    "colour": null,
-   "z": 2
+   "z": 2,
+   "ext": {
+    "file": "e014x.png",
+    "x": 585.8,
+    "y": 278.14,
+    "w": 857.67,
+    "h": 518.66
+   },
+   "ext_check": {
+    "diff": 5.39,
+    "coverage": 0.9966,
+    "seam": 0.19
+   }
   },
   {
    "id": "e000",
@@ -81,6 +94,7 @@
    "kind": "image",
    "text": null,
    "file": "e013.png",
+   "cutout": false,
    "x": 72.67,
    "y": 259.7,
    "w": 807.5,

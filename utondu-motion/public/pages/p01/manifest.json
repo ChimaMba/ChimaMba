@@ -33,6 +33,7 @@
    "kind": "image",
    "text": null,
    "file": "e010.png",
+   "cutout": false,
    "x": 112.88,
    "y": 49.8,
    "w": 897.14,

@@ -9,9 +9,10 @@ Motion design for the UTONDU brand identity ("The Comfort of Life"), built in [R
 | `UTONDU_BrandFilm.mp4` | 1920×1080 · 30fps | 70.7s | All 18 pages of the brand board, in order, with score and motion sound |
 | `UTONDU_LogoSting.mp4` | 1920×1080 · 30fps | 7s | Logo build on the light ground |
 | `UTONDU_LogoStingDark.mp4` | 1920×1080 · 30fps | 7s | Logo build on the dark ground (Chocolate Brown, White Rock wordmark) |
-| `UTONDU_SocialVertical.mp4` | 1080×1920 · 30fps | 24.7s | Reels / TikTok / Stories cut |
-| `UTONDU_SocialSquare.mp4` | 1080×1080 · 30fps | 24.7s | Feed / LinkedIn cut |
-| `audio/UTONDU_*_music.wav`, `audio/UTONDU_*_sfx.wav` | 48 kHz WAV | | Music and motion-sound stems; music + sfx = the final mix |
+| `UTONDU_InstagramReels.mp4` | 1080×1920 · 30fps | 24.7s | Instagram Reels (also TikTok, Stories) |
+| `UTONDU_InstagramFeed.mp4` | 1080×1350 · 30fps | 29.3s | Instagram feed (4:5) |
+| `UTONDU_LinkedInSquare.mp4` | 1080×1080 · 30fps | 24.7s | LinkedIn / square feeds |
+| `audio/UTONDU_*_music.wav`, `audio/UTONDU_*_sfx.wav` | 48 kHz WAV | | Music and motion-sound stems per edit (BrandFilm, Reels-LinkedIn, InstagramFeed, LogoSting); music + sfx = the final mix |
 
 Mixes are at −16 LUFS integrated, peaks below −1.5 dBFS, AAC 320 kbps in the MP4s. Motion guidelines: `motion-guidelines.html`.
 
@@ -46,7 +47,16 @@ Mixes are at −16 LUFS integrated, peaks below −1.5 dBFS, AAC 320 kbps in the
 - `scripts/verify_pages.py` rebuilds every page from its layers and compares it with the PDF: 42–60 dB PSNR on every page used in the film.
 - Third-party marks in source photos stay hidden: the "RSAKA" mark on the cover photo under the board's own cream patch, the "BC" lettering erased from the coffee-table photo, the monogram on the page-12 photo under its panel.
 
-`src/pages/choreo.ts` gives every element a motion preset (photos wipe up and settle, panels wipe from the edge they touch, wordmark letters rise left to right, lines draw, dots pop, text lines rise out of their own masks) and a start frame; `src/scenes/PageScene.tsx` renders it, fitted to 16:9 with the page background extended to the frame edges.
+`src/pages/choreo.ts` gives every element a motion preset and a start frame: photos wipe in from the edge they bleed off, cut-out products are placed down and settle, panels wipe from the edge they touch, wordmark letters rise left to right, lines draw, dots pop, and text lines rise out of their own masks. `src/scenes/PageScene.tsx` renders it.
+
+**Every element sits exactly where, and at exactly the size, it is on the board.** Pages are fitted to the frame height, and `framePage()` decides how to fill the 16:9 side margins without touching anything inside the page:
+- flat backgrounds continue with their own edge colours, and shapes touching a page edge continue as solid colour;
+- images that bleed off the page continue with their real source content beyond it (`eNNNx.png`, rendered from the source photo and colour-matched; inside the page the board's exact crop is kept);
+- the margins are split per side so that a photo side only needs as much real content as exists (pages 6, 9 and 12 sit off-centre for this reason);
+- full-bleed photos with no spare content (pages 7 and 13) continue with their own edge colours, softened, with no seam;
+- pages that are a single photo (17, 18) fill the frame.
+
+`scripts/check_fidelity.py` renders every page scene's settled frame and measures it against the PDF (27–42 dB; the remainder is resampling texture).
 
 ### One timeline for picture and sound
 `src/timeline.ts` is the single source of truth: every edit (film, social, sting), every scene length and transition, and the sound cue for every animated element.
@@ -81,6 +91,7 @@ After changing the brand board PDF:
 ```bash
 python3 -I scripts/decompose_pages.py   # page layers (PyMuPDF, numpy, Pillow)
 python3 -I scripts/verify_pages.py      # proves the layers rebuild the pages
+python3 -I scripts/check_fidelity.py    # proves the film shows each page as designed (after npx remotion bundle)
 ./scripts/extract-master.sh             # master wordmark, tagline, big U, colour-page cut-outs
 ```
 

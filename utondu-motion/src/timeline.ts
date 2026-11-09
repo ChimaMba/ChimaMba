@@ -82,7 +82,7 @@ export const FILM: SceneSpec[] = [
   { kind: "endcard", dur: 120, label: "End card" },
 ];
 
-// ---- social cut (9:16 and 1:1) ---------------------------------------------
+// ---- Instagram Reels (9:16) and LinkedIn (1:1) cut --------------------------
 export const SOCIAL: SceneSpec[] = [
   { kind: "sting", dur: 140, out: "lift", label: "Logo sting" },
   { kind: "versions", dur: 120, out: "lift", label: "p3 Logo on light and dark" },
@@ -92,9 +92,20 @@ export const SOCIAL: SceneSpec[] = [
   { kind: "endcard", dur: 100, label: "End card" },
 ];
 
+// ---- Instagram feed cut (4:5): adds the clear-space construction --------------
+export const INSTAGRAM: SceneSpec[] = [
+  { kind: "sting", dur: 140, out: "lift", label: "Logo sting" },
+  { kind: "versions", dur: 120, out: "iris", label: "p3 Logo on light and dark" },
+  { kind: "construction", dur: 160, out: "lift", label: "p2 Clear space" },
+  { kind: "statement", dur: 100, out: "iris", label: "p16 Your space, your story" },
+  { kind: "lifestyle", dur: 180, out: "lift", label: "p10–11 Lifestyle" },
+  { kind: "plates", dur: 200, out: "fade", label: "Applications" },
+  { kind: "endcard", dur: 100, label: "End card" },
+];
+
 export const STING: SceneSpec[] = [{ kind: "sting", dur: 210, label: "Logo sting" }];
 
-export const EDITS = { film: FILM, social: SOCIAL, sting: STING };
+export const EDITS = { film: FILM, social: SOCIAL, instagram: INSTAGRAM, sting: STING };
 
 // ---- timing --------------------------------------------------------------------
 export const startsOf = (edit: SceneSpec[]) => {

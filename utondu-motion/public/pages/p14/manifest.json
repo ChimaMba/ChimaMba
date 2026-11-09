@@ -9,6 +9,7 @@
    "kind": "image",
    "text": null,
    "file": "e032.png",
+   "cutout": true,
    "x": 322.04,
    "y": 0.0,
    "w": 476.24,
@@ -21,6 +22,7 @@
    "kind": "image",
    "text": null,
    "file": "e030.png",
+   "cutout": false,
    "x": 107.72,
    "y": 310.97,
    "w": 167.11,
@@ -57,6 +59,7 @@
    "kind": "image",
    "text": null,
    "file": "e031.png",
+   "cutout": true,
    "x": 303.96,
    "y": 310.97,
    "w": 169.32,
@@ -345,6 +348,7 @@
    "kind": "image",
    "text": null,
    "file": "e029.png",
+   "cutout": false,
    "x": 307.65,
    "y": 563.29,
    "w": 155.67,
@@ -369,12 +373,25 @@
    "kind": "image",
    "text": null,
    "file": "e028.png",
+   "cutout": false,
    "x": 550.75,
    "y": 0.0,
    "w": 572.52,
    "h": 796.8,
    "colour": null,
-   "z": 45
+   "z": 45,
+   "ext": {
+    "file": "e028x.png",
+    "x": 550.75,
+    "y": 0.0,
+    "w": 830.74,
+    "h": 796.8
+   },
+   "ext_check": {
+    "diff": 2.58,
+    "coverage": 1.0,
+    "seam": 0.02
+   }
   },
   {
    "id": "e026",

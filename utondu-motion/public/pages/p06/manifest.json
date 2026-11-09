@@ -225,12 +225,25 @@
    "kind": "image",
    "text": null,
    "file": "e027.png",
+   "cutout": true,
    "x": 796.06,
    "y": 319.83,
    "w": 327.2,
    "h": 476.97,
    "colour": null,
-   "z": 26
+   "z": 26,
+   "ext": {
+    "file": "e027x.png",
+    "x": 796.06,
+    "y": 285.89,
+    "w": 366.31,
+    "h": 510.91
+   },
+   "ext_check": {
+    "diff": 4.33,
+    "coverage": 0.9981,
+    "seam": 0.34
+   }
   },
   {
    "id": "e018",

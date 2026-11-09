@@ -9,6 +9,7 @@
    "kind": "image",
    "text": null,
    "file": "e011.png",
+   "cutout": true,
    "x": 382.54,
    "y": 263.02,
    "w": 278.51,

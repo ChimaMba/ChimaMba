@@ -6,11 +6,13 @@ import { clamp, colors, ease, fontFamily } from "./brand";
 export const useLayout = () => {
   const { width, height } = useVideoConfig();
   const portrait = height > width;
+  /** tall formats (9:16) stack content; 4:5 and 1:1 use row layouts */
+  const tall = height / width > 1.5;
   const square = width === height;
   const landscape = !portrait && !square;
   const u = Math.min(width, height) / 1080; // 1 at 1080p short side
   const wordmarkWidth = landscape ? width * 0.47 : width * 0.72;
-  return { width, height, portrait, square, landscape, u, wordmarkWidth };
+  return { width, height, portrait, tall, square, landscape, u, wordmarkWidth };
 };
 
 /** Tagline / caps line with per-character stagger and a tracking settle. */

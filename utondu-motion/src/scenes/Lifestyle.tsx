@@ -58,9 +58,9 @@ const U_GUIDE = `M ${lx} ${bigU.y0 - 4} V ${by - r} A ${r} ${r} 0 0 0 ${lx + r} 
 export const Lifestyle: React.FC = () => {
   const frame = useCurrentFrame();
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const { width, height, landscape, portrait, u } = useLayout();
+  const { width, height, landscape, tall, u } = useLayout();
   // 16:9 and 1:1 use the board's side-by-side split; 9:16 stacks panel and photo.
-  const side = !portrait;
+  const side = !tall;
   const e = (
     f0: number,
     f1: number,
@@ -75,7 +75,7 @@ export const Lifestyle: React.FC = () => {
   // 16:9 is wider than the A4 board: scale the U 11% past height-fit so it spans
   // the same share of the panel + photo as on the board (bottom curve at ~80%).
   const s = side
-    ? (height / bigU.page.height) * (landscape ? 1.11 : 0.95) // square: keep both legs partly in frame
+    ? Math.min((height / bigU.page.height) * (landscape ? 1.11 : 0.95), (width * 1.05) / (bigU.x1 - bigU.x0)) // never wider than ~the frame, so both legs read
     : (width * 1.15) / (bigU.x1 - bigU.x0);
   const ts = side ? height / bigU.page.height : s; // type scale stays height-fit
   const uLeft = side

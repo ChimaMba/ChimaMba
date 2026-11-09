@@ -1,5 +1,5 @@
 import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { clamp, colors, ease } from "../brand";
 import { master } from "../masterArtwork";
 import { TaglineArt, TOTAL, Wordmark } from "../Wordmark";
@@ -22,7 +22,7 @@ export const COVER_EXCLUDE = manifests[1].elements
   .filter((e) => e.kind !== "image" && e.colour === "#4B352C" && e.y >= 215 && e.y + e.h <= 350)
   .map((e) => e.id);
 
-export const Cover: React.FC<{ dur: number }> = ({ dur }) => {
+export const Cover: React.FC<{ dur: number; push?: number }> = ({ dur, push = 0.015 }) => {
   const frame = useCurrentFrame();
   const { width, height } = useVideoConfig();
   const { wordmarkWidth: wm0 } = useLayout();
@@ -38,6 +38,10 @@ export const Cover: React.FC<{ dur: number }> = ({ dur }) => {
   const x1 = 276.6 * g.s + g.offX;
   const y1 = 229 * g.s + g.offY;
   const p = interpolate(frame, [4, 40], [0, 1], { ...clamp, easing: ease.glide });
+  // as the glide lands, hand over to page 1's own wordmark + tagline layers, so the
+  // settled frame is the board's cover exactly (its tagline is lighter and smaller)
+  const hand = interpolate(frame, [36, 46], [0, 1], { ...clamp, easing: ease.glide });
+  const own = manifests[1].elements.filter((e) => COVER_EXCLUDE.includes(e.id));
 
   return (
     <PageScene
@@ -45,7 +49,7 @@ export const Cover: React.FC<{ dur: number }> = ({ dur }) => {
       dur={dur}
       exclude={COVER_EXCLUDE}
       at={{ image: 16, line: 40 }}
-      push={0.015}
+      push={push}
     >
       {/* the sting's warm light, fading as the page arrives */}
       <div
@@ -57,11 +61,19 @@ export const Cover: React.FC<{ dur: number }> = ({ dur }) => {
           background: "radial-gradient(60% 80% at 75% 40%, #ffffff 0%, transparent 70%)",
         }}
       />
+      {own.map((e) => (
+        <Img
+          key={e.id}
+          src={staticFile(`pages/p01/${e.file}`)}
+          style={{ position: "absolute", left: g.offX + e.x * g.s, top: g.offY + e.y * g.s, width: e.w * g.s, height: e.h * g.s, opacity: hand }}
+        />
+      ))}
       <div
         style={{
           position: "absolute",
           left: 0,
           top: 0,
+          opacity: 1 - hand,
           width: wm0,
           transformOrigin: "0 0",
           translate: `${x0 + (x1 - x0) * p}px ${y0 + (y1 - y0) * p}px`,

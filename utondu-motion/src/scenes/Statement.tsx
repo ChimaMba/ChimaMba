@@ -22,12 +22,12 @@ const CHAIR_RATIO = 454 / 705;
  */
 export const Statement: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height, landscape, portrait, u } = useLayout();
+  const { width, height, landscape, tall, u } = useLayout();
   const e = (f0: number, f1: number, a: number, b: number) =>
     interpolate(frame, [f0, f1], [a, b], { ...clamp, easing: ease.settle });
 
   const pad = (landscape ? 70 : 80) * u;
-  const rowSize = (landscape ? 22 : portrait ? 30 : 24) * u;
+  const rowSize = (landscape ? 22 : tall ? 30 : 24) * u;
   const word = (size: number) =>
     ({
       fontFamily,
@@ -72,7 +72,7 @@ export const Statement: React.FC = () => {
   );
 
   let body: React.ReactNode;
-  if (portrait) {
+  if (tall) {
     // zones: text block from 11% to ~49%, chair from 52% to 88%
     const size = width * 0.15;
     const chairH = height * 0.36;

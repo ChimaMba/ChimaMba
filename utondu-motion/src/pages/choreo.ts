@@ -10,7 +10,8 @@ import type { PageElement, PageManifest } from "./manifests";
 
 export type Preset =
   | "bg" // full-bleed photo: slow push-out
-  | "image" // photo / cut-out: wipes up and settles
+  | "image" // rectangular photo: wipes in from the edge it bleeds off (or up)
+  | "product" // cut-out product: placed down onto the page and settles
   | "panel" // large colour block: wipes in from the edge it touches
   | "letter" // wordmark letter: rises into place
   | "line" // hairline: draws from the left
@@ -42,12 +43,12 @@ export type PageOptions = {
   as?: Record<string, Preset>;
 };
 
-const DEFAULT_AT: Record<Preset, number> = { bg: 0, panel: 2, image: 6, letter: 12, line: 18, pop: 20, text: 18 };
-const DEFAULT_STAGGER: Record<Preset, number> = { bg: 0, panel: 4, image: 6, letter: 2, line: 3, pop: 3, text: 2.5 };
+const DEFAULT_AT: Record<Preset, number> = { bg: 0, panel: 2, image: 6, product: 8, letter: 12, line: 18, pop: 20, text: 18 };
+const DEFAULT_STAGGER: Record<Preset, number> = { bg: 0, panel: 4, image: 6, product: 6, letter: 2, line: 3, pop: 3, text: 2.5 };
 
 export function classify(e: PageElement, m: PageManifest): Preset {
   const area = (e.w * e.h) / (m.width * m.height);
-  if (e.kind === "image") return e.w >= m.width * 0.95 && e.h >= m.height * 0.95 ? "bg" : "image";
+  if (e.kind === "image") return e.w >= m.width * 0.95 && e.h >= m.height * 0.95 ? "bg" : e.cutout ? "product" : "image";
   if (area > 0.12) return "panel";
   if (e.kind === "text") return "text";
   if (e.h < 4 || e.w < 4) return "line";
@@ -66,6 +67,7 @@ export function choreograph(m: PageManifest, o: PageOptions = {}): Placed[] {
     bg: (a, b) => a.z - b.z,
     panel: (a, b) => a.z - b.z,
     image: (a, b) => a.z - b.z,
+    product: (a, b) => a.z - b.z,
     letter: (a, b) => a.y - b.y || a.x - b.x, // rows top to bottom, then left to right
     line: (a, b) => a.y - b.y || a.x - b.x,
     pop: (a, b) => a.y - b.y || a.x - b.x,
@@ -107,7 +109,10 @@ export function pageCues(m: PageManifest, placed: Placed[]): Cue[] {
         break;
       case "image":
         cues.push({ frame: e.start + 4, kind: "swoosh", pan: pan(e), weight: weight(e) });
-        cues.push({ frame: e.start + 22, kind: "thud", pan: pan(e), weight: weight(e) * 0.7 });
+        break;
+      case "product":
+        cues.push({ frame: e.start + 2, kind: "swoosh", pan: pan(e), weight: weight(e) * 0.7 });
+        cues.push({ frame: e.start + 20, kind: "thud", pan: pan(e), weight: Math.max(0.4, weight(e)) });
         break;
       case "panel":
         cues.push({ frame: e.start + 2, kind: "whoosh", pan: pan(e), weight: weight(e) });
@@ -141,4 +146,65 @@ function thin(cues: Cue[]): Cue[] {
     out.push({ ...c });
   }
   return out;
+}
+
+
+// ---- framing -------------------------------------------------------------------
+export type Framing = {
+  mode: "contain" | "cover";
+  /** px per PDF point */
+  s: number;
+  offX: number;
+  offY: number;
+  /** sides where the background photo has no real content beyond the page */
+  mirror: { L: boolean; R: boolean };
+};
+
+const touchesL = (e: PageElement) => e.x <= 1;
+const touchesR = (e: PageElement, m: PageManifest) => e.x + e.w >= m.width - 1;
+
+/** How much real content (PDF points) exists beyond a page side, given what touches it. */
+export function bleedAvailable(m: PageManifest, side: "L" | "R"): number {
+  let avail = Infinity;
+  for (const e of m.elements) {
+    const touches = side === "L" ? touchesL(e) : touchesR(e, m);
+    if (!touches) continue;
+    if (e.kind !== "image") continue; // vector shapes extend as solid colour
+    const ext = e.ext;
+    const a = ext ? (side === "L" ? -ext.x : ext.x + ext.w - m.width) : 0;
+    avail = Math.min(avail, Math.max(0, a));
+  }
+  return avail;
+}
+
+/**
+ * Fits a page into the frame without moving anything inside it. The page is
+ * fitted to the frame height; the side margins are split so that each side only
+ * needs as much image content as really exists beyond it (flat backgrounds and
+ * solid panels extend freely). Pages that are a single photo fill the frame.
+ */
+export function framePage(m: PageManifest, width: number, height: number): Framing {
+  const onlyPhoto = m.elements.length === 1 && m.elements[0].kind === "image";
+  if (onlyPhoto) {
+    const s = Math.max(width / m.width, height / m.height);
+    return { mode: "cover", s, offX: (width - m.width * s) / 2, offY: (height - m.height * s) / 2, mirror: { L: false, R: false } };
+  }
+  const s = Math.min(height / m.height, width / m.width);
+  const marginPt = width / s - m.width; // total horizontal margin, PDF points
+  const offY = (height - m.height * s) / 2;
+  if (marginPt <= 0.5) return { mode: "contain", s, offX: (width - m.width * s) / 2, offY, mirror: { L: false, R: false } };
+  const aL = bleedAvailable(m, "L");
+  const aR = bleedAvailable(m, "R");
+  let left = marginPt / 2;
+  const lo = marginPt - aR; // left margin must be at least this for the right side to fit
+  const hi = aL; // and at most this for the left side to fit
+  const feasible = lo <= hi;
+  if (feasible) left = Math.min(Math.max(left, lo), hi);
+  return {
+    mode: "contain",
+    s,
+    offX: left * s,
+    offY,
+    mirror: { L: !feasible && left > aL + 0.5, R: !feasible && marginPt - left > aR + 0.5 },
+  };
 }

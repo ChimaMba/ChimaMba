@@ -9,12 +9,25 @@
    "kind": "image",
    "text": null,
    "file": "e008.png",
+   "cutout": false,
    "x": 450.78,
    "y": 0.0,
    "w": 672.48,
    "h": 796.8,
    "colour": null,
-   "z": 2
+   "z": 2,
+   "ext": {
+    "file": "e008x.png",
+    "x": 450.78,
+    "y": 0.0,
+    "w": 725.6,
+    "h": 796.8
+   },
+   "ext_check": {
+    "diff": 1.88,
+    "coverage": 1.0,
+    "seam": 0.36
+   }
   },
   {
    "id": "e000",

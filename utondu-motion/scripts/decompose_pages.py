@@ -147,6 +147,50 @@ def draw_alone(page, idxs, zoom):
     return unpremultiply(rgba)
 
 
+EXT = 320  # PDF points rendered beyond the left and right page edges for bleeding images
+
+
+def unclipped_image(src_doc, page, xref, zoom):
+    """Render one image unclipped, EXT points beyond the left/right page edges, from
+    its source pixels and placement transform. Axis-aligned placements only (flips
+    handled); returns (rgba, x0_pt) or None."""
+    infos = [i for i in page.get_image_info(xrefs=True) if i["xref"] == xref]
+    if len(infos) != 1:
+        return None
+    a, b_, c, d, e, f = infos[0]["transform"]
+    if abs(b_) > 1e-3 or abs(c) > 1e-3:
+        return None  # rotated placement: not extended
+    base = pymupdf.Pixmap(src_doc, xref)
+    smask = src_doc.extract_image(xref).get("smask") or 0
+    if base.n - base.alpha > 3:  # CMYK etc. -> RGB
+        base = pymupdf.Pixmap(pymupdf.csRGB, base)
+    if smask:
+        base = pymupdf.Pixmap(base, pymupdf.Pixmap(src_doc, smask))
+    mode = "RGBA" if base.alpha else "RGB"
+    img = Image.frombytes(mode, (base.width, base.height), base.samples).convert("RGBA")
+    if a < 0:
+        img = img.transpose(Image.FLIP_LEFT_RIGHT)
+    if d < 0:
+        img = img.transpose(Image.FLIP_TOP_BOTTOM)
+    x0, x1 = sorted((e, e + a))
+    y0, y1 = sorted((f, f + d))
+    W, H = page.rect.width, page.rect.height
+    cw, ch = int(round((W + 2 * EXT) * zoom)), int(round(H * zoom))
+    canvas = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
+    tw, th = int(round((x1 - x0) * zoom)), int(round((y1 - y0) * zoom))
+    placed = img.resize((max(tw, 1), max(th, 1)), Image.LANCZOS)
+    px, py = int(round((x0 + EXT) * zoom)), int(round(y0 * zoom))
+    # paste with clipping to the canvas
+    sx0, sy0 = max(0, -px), max(0, -py)
+    dx0, dy0 = max(0, px), max(0, py)
+    w_ = min(placed.width - sx0, cw - dx0)
+    h_ = min(placed.height - sy0, ch - dy0)
+    if w_ <= 0 or h_ <= 0:
+        return None
+    canvas.alpha_composite(placed.crop((sx0, sy0, sx0 + w_, sy0 + h_)), (dx0, dy0))
+    return np.asarray(canvas), -EXT
+
+
 def process(pno):
     src = pymupdf.open(PDF)
     page = src[pno]
@@ -249,9 +293,70 @@ def process(pno):
             return i.get_area() / ((r1 | r2).get_area() or 1)
         cands = [(max(iou(pymupdf.Rect(b), bb) for bb in bbs), k) for k, (kind, b) in enumerate(log) if kind == "fill-image"]
         z = max(cands)[1] if cands else 0
-        manifest["elements"].append(dict(id=f"e{n:03d}", kind="image", text=None, file=f,
-                                          x=round(x0 / zoom, 2), y=round(y0 / zoom, 2), w=round((x1 - x0) / zoom, 2), h=round((y1 - y0) / zoom, 2),
-                                          colour=None, z=z))
+        crop_a = rgba[y0:y1, x0:x1, 3]
+        cutout = bool((crop_a < 128).mean() > 0.12)  # product cut-out vs rectangular photo
+        el = dict(id=f"e{n:03d}", kind="image", text=None, file=f, cutout=cutout,
+                  x=round(x0 / zoom, 2), y=round(y0 / zoom, 2), w=round((x1 - x0) / zoom, 2), h=round((y1 - y0) / zoom, 2),
+                  colour=None, z=z)
+        # bleeding off the left/right page edge? render the real content beyond it
+        touches = x0 <= 2 or x1 >= rgba.shape[1] - 2
+        if touches:
+            ext = unclipped_image(src, page, xref, zoom)
+            if ext is not None:
+                ea, ex_pt = ext
+                ea = ea.astype(np.float32)
+                off = int(round(-ex_pt * zoom))  # canvas px where the page starts
+                Wpx = int(round(W * zoom))
+                # the clipped element, placed on the same canvas
+                clip_c = np.zeros_like(ea)  # (rgba is this image's full-page render)
+                hh = min(rgba.shape[0], ea.shape[0])
+                ww = min(rgba.shape[1], ea.shape[1] - off)
+                clip_c[:hh, off:off + ww] = rgba[:hh, :ww]
+                m_ = clip_c[..., 3] > 200
+                # colour-match the raw source to MuPDF's colour-managed render
+                if m_.sum() > 100:
+                    for ch in range(3):
+                        A = np.vstack([ea[..., ch][m_], np.ones(m_.sum())]).T
+                        g, o = np.linalg.lstsq(A, clip_c[..., ch][m_], rcond=None)[0]
+                        ea[..., ch] = np.clip(ea[..., ch] * g + o, 0, 255)
+                    diff = float(np.abs(ea[..., :3] - clip_c[..., :3]).max(axis=2)[m_].mean())
+                    cov = float((ea[..., 3] > 200)[m_].mean())
+                else:
+                    diff, cov = 999.0, 0.0
+                # seam continuity: in a 20px strip just inside each bleeding edge, the
+                # extension's own pixels against the exact pixels at the same place.
+                # The mean colour bias there is exactly the step a viewer would see.
+                Wr = rgba.shape[1]
+                seam = 0.0
+                for side, c0, c1 in (("L", off, off + 20), ("R", off + Wr - 20, off + Wr)):
+                    if (side == "L" and x0 <= 2) or (side == "R" and x1 >= Wr - 2):
+                        both = (clip_c[:, c0:c1, 3] > 200) & (ea[:, c0:c1, 3] > 200)
+                        if both.sum() > 50:
+                            bias = np.abs(ea[:, c0:c1, :3][both].mean(axis=0) - clip_c[:, c0:c1, :3][both].mean(axis=0)).max()
+                            seam = max(seam, float(bias))
+                if diff < 14 and cov > 0.98 and seam < 4:
+                    # inside the page: exactly the clipped render; beyond it: real
+                    # source content, only on the side(s) the element bleeds from
+                    final = clip_c.copy()
+                    if x0 <= 2:
+                        final[:, :off] = ea[:, :off]
+                    if x1 >= Wr - 2:
+                        final[:, off + Wr:] = ea[:, off + Wr:]
+                    final = final.astype(np.uint8)
+                    ys2, xs2 = np.where(final[..., 3] > 2)
+                    ex0, ex1, ey0, ey1 = xs2.min(), xs2.max() + 1, ys2.min(), ys2.max() + 1
+                    fe = f"e{n:03d}x.png"
+                    Image.fromarray(final[ey0:ey1, ex0:ex1], "RGBA").save(os.path.join(out, fe), optimize=True)
+                    el["ext"] = dict(file=fe, x=round((ex0 - off) / zoom, 2), y=round(ey0 / zoom, 2),
+                                     w=round((ex1 - ex0) / zoom, 2), h=round((ey1 - ey0) / zoom, 2))
+                el["ext_check"] = dict(diff=round(float(diff), 2), coverage=round(float(cov), 4), seam=round(seam, 2))
+        # full-page photos: keep their edge columns (4px in) to extend them into side margins
+        if el["w"] >= W * 0.95 and el["h"] >= H * 0.95:
+            core = rgba[y0:y1, x0:x1]
+            Image.fromarray(np.repeat(core[:, 4:5, :3], 4, axis=1)).save(os.path.join(out, f"e{n:03d}-edge-l.png"))
+            Image.fromarray(np.repeat(core[:, -5:-4, :3], 4, axis=1)).save(os.path.join(out, f"e{n:03d}-edge-r.png"))
+            el["edges"] = True
+        manifest["elements"].append(el)
         n += 1
     # Plate clean-up: vectors inside form XObjects survive redaction, so paint the
     # background back in under every vector layer (median of a ring around it).
@@ -287,11 +392,13 @@ def write_ts_index():
     data = {}
     for f in folders:
         m = json.load(open(os.path.join(OUT, f, "manifest.json")))
+        for e in m["elements"]:
+            e.pop("ext_check", None)  # QA numbers stay in manifest.json only
         data[m["page"]] = m
     os.makedirs(os.path.join(ROOT, "src", "pages"), exist_ok=True)
     with open(os.path.join(ROOT, "src", "pages", "manifests.ts"), "w") as fh:
         fh.write("// Generated by scripts/decompose_pages.py from the brand PDF. Do not edit by hand.\n")
-        fh.write("export type PageElement = { id: string; kind: \"text\" | \"graphic\" | \"image\"; text: string | null; file: string; x: number; y: number; w: number; h: number; colour: string | null; z: number };\n")
+        fh.write("export type PageElement = { id: string; kind: \"text\" | \"graphic\" | \"image\"; text: string | null; file: string; x: number; y: number; w: number; h: number; colour: string | null; z: number; cutout?: boolean; edges?: boolean; ext?: { file: string; x: number; y: number; w: number; h: number } };\n")
         fh.write("export type PageManifest = { page: number; width: number; height: number; plate: string; elements: PageElement[] };\n")
         fh.write("export const manifests: Record<number, PageManifest> = " + json.dumps(data) + ";\n")
 

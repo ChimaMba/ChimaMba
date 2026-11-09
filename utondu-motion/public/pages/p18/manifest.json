@@ -9,12 +9,26 @@
    "kind": "image",
    "text": null,
    "file": "e000.png",
+   "cutout": false,
    "x": 0.0,
    "y": 0.0,
    "w": 1123.27,
    "h": 796.8,
    "colour": null,
-   "z": 2
+   "z": 2,
+   "ext": {
+    "file": "e000x.png",
+    "x": 0.0,
+    "y": 0.0,
+    "w": 1123.27,
+    "h": 796.8
+   },
+   "ext_check": {
+    "diff": 3.56,
+    "coverage": 1.0,
+    "seam": 1.93
+   },
+   "edges": true
   }
  ]
 }

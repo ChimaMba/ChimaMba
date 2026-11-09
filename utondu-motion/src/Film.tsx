@@ -5,7 +5,7 @@ import { TransitionSeries } from "@remotion/transitions";
 import type { TransitionPresentation } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { brandTiming, lift, oIris } from "./transitions";
-import { FILM, SOCIAL, SceneSpec, durationOf } from "./timeline";
+import { FILM, INSTAGRAM, SOCIAL, SceneSpec, durationOf } from "./timeline";
 import { LogoSting } from "./scenes/LogoSting";
 import { Cover } from "./scenes/Cover";
 import { Construction } from "./scenes/Construction";
@@ -17,18 +17,18 @@ import { Statement } from "./scenes/Statement";
 import { Applications } from "./scenes/Applications";
 import { EndCard } from "./scenes/EndCard";
 
-export const renderScene = (s: SceneSpec) => {
+export const renderScene = (s: SceneSpec, qa = false) => {
   switch (s.kind) {
     case "sting":
       return <LogoSting theme="light" />;
     case "cover":
-      return <Cover dur={s.dur} />;
+      return <Cover dur={s.dur} push={qa ? 0 : undefined} />;
     case "construction":
       return <Construction />;
     case "versions":
       return <LogoVersions />;
     case "page":
-      return <PageScene page={s.page!} dur={s.dur} {...(s.opts ?? {})} />;
+      return <PageScene page={s.page!} dur={s.dur} {...(s.opts ?? {})} push={qa ? 0 : undefined} />;
     case "palette":
       return <Palette />;
     case "lifestyle":
@@ -69,5 +69,7 @@ export const Edit: React.FC<{ edit: SceneSpec[]; score: string }> = ({ edit, sco
 
 export const FILM_DURATION = durationOf(FILM);
 export const SOCIAL_DURATION = durationOf(SOCIAL);
+export const INSTAGRAM_DURATION = durationOf(INSTAGRAM);
 export const Film: React.FC = () => <Edit edit={FILM} score="audio/score-film.wav" />;
 export const Social: React.FC = () => <Edit edit={SOCIAL} score="audio/score-social.wav" />;
+export const Instagram: React.FC = () => <Edit edit={INSTAGRAM} score="audio/score-instagram.wav" />;

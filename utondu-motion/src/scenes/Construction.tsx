@@ -123,7 +123,8 @@ export const Construction: React.FC = () => {
           textAlign: "center",
           fontFamily,
           fontWeight: 300,
-          fontSize: (landscape ? 30 : 36) * u,
+          fontSize: (landscape ? 30 : 29) * u,
+          whiteSpace: "nowrap", // one line in every format — never an orphaned word
           lineHeight: 1.4,
           letterSpacing: "0.04em",
           color: colors.whiteRock,
