@@ -1,0 +1,258 @@
+<title>UTONDU Motion Guidelines</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@200;300;400;500&display=swap">
+<style>
+/* Layout: one calm column, generous whitespace, each rule paired with a live specimen — the brand board, set in motion. */
+:root{
+  --ground:#F2EDE7;      /* cover cream */
+  --surface:#E7DBCF;     /* White Rock */
+  --mist:#E4E0DA;        /* Foggy Grey */
+  --ink:#372922;         /* Chocolate Brown */
+  --ink-soft:#6f625b;
+  --rule:rgba(55,41,34,.16);
+  --copper:#B8714F;
+  --mark:#4A3A33;
+  --sans:"Hanken Grotesk","Suisse Intl","Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#231a16;--surface:#372922;--mist:#2d221d;--ink:#E7DBCF;--ink-soft:#b3a69c;--rule:rgba(231,219,207,.16);--copper:#D7926F;--mark:#E7DBCF;color-scheme:dark}}
+:root[data-theme="dark"]{--ground:#231a16;--surface:#372922;--mist:#2d221d;--ink:#E7DBCF;--ink-soft:#b3a69c;--rule:rgba(231,219,207,.16);--copper:#D7926F;--mark:#E7DBCF;color-scheme:dark}
+
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:56px 96px}
+h1,h2,h3{font-weight:300;margin:0;text-wrap:balance}
+h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.01em}
+h3{font-size:19px;font-weight:400}
+p{margin:0;max-width:62ch}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:400}
+section{display:grid;gap:28px;padding-block:64px;border-top:1px solid var(--rule)}
+code,.mono{font-family:var(--mono);font-size:.86em}
+
+/* hero */
+.hero{display:grid;gap:28px;padding-block:24px 72px}
+.stage{background:var(--surface);border-radius:28px;display:grid;place-items:center;gap:20px;padding:clamp(48px,9vw,110px) 24px;position:relative;overflow:hidden}
+.stage svg{width:min(640px,86%);height:auto;overflow:visible}
+.tag{font-size:clamp(12px,1.6vw,17px);letter-spacing:.14em;color:var(--ink-soft)}
+.replay{position:absolute;right:18px;bottom:16px;font:inherit;font-size:13px;letter-spacing:.08em;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:8px 16px;cursor:pointer}
+.replay:hover{border-color:var(--ink)}
+.replay:focus-visible,button:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+.lede{font-size:clamp(19px,2.2vw,23px);max-width:52ch}
+
+/* wordmark animation */
+.wm path{fill:none;stroke:var(--mark);stroke-width:9.7;stroke-linecap:butt;stroke-linejoin:miter}
+.play .wm path{stroke-dasharray:1 1;stroke-dashoffset:1;animation:draw 1.2s cubic-bezier(.45,0,.2,1) forwards}
+.play .wm .turn{animation:turn 1s cubic-bezier(.65,0,.35,1) 2.13s both}
+.play .tag span{display:inline-block;opacity:0;animation:rise .8s cubic-bezier(.16,1,.3,1) forwards}
+.wm .turn{transform-box:fill-box;transform-origin:center;transform:rotate(180deg)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes turn{from{transform:rotate(0)}to{transform:rotate(180deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(.5em)}to{opacity:1;transform:none}}
+
+/* principles */
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px}
+.principles div{display:grid;gap:8px;align-content:start}
+.principles p{color:var(--ink-soft)}
+
+/* easing */
+.curves{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.curve{background:var(--mist);border-radius:18px;padding:20px;display:grid;gap:12px;min-width:0}
+.curve svg{width:100%;height:auto}
+.curve .axis{stroke:var(--rule);stroke-width:1;fill:none}
+.curve .line{stroke:var(--ink);stroke-width:2;fill:none}
+.track{height:10px;border-radius:999px;background:var(--rule);position:relative}
+.dot{position:absolute;left:0;top:-3px;width:16px;height:16px;border-radius:50%;background:var(--copper);animation:slide 2.4s infinite alternate}
+@keyframes slide{0%,8%{left:0}92%,100%{left:calc(100% - 16px)}}
+.curve .meta{font-size:14px;color:var(--ink-soft)}
+
+/* tokens table */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:400;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+td:first-child{font-weight:400;white-space:nowrap}
+
+/* transitions */
+.trans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.tbox{aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;position:relative;background:var(--mist)}
+.tbox .a,.tbox .b{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;letter-spacing:.16em}
+.tbox .a{background:var(--surface);color:var(--ink)}
+.tbox .b{background:#372922;color:#E7DBCF}
+.iris .b{animation:iris 3.2s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes iris{0%,25%{clip-path:inset(44% 42% round 200px)}60%,100%{clip-path:inset(0 0 round 0)}}
+.lift .b{animation:lift 3.2s cubic-bezier(.65,0,.35,1) infinite}
+.lift .a{animation:sink 3.2s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes lift{0%,25%{transform:translateY(100%)}60%,100%{transform:none}}
+@keyframes sink{0%,25%{transform:none}60%,100%{transform:translateY(-12%)}}
+.trans figcaption{display:grid;gap:4px;margin-top:12px}
+.trans figcaption span{color:var(--ink-soft);font-size:15px}
+figure{margin:0}
+
+/* do / don't */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px}
+.rules ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.rules li{padding-left:22px;position:relative}
+.rules li::before{content:"";position:absolute;left:0;top:.7em;width:10px;height:2px;background:var(--ink)}
+.rules .no li::before{background:var(--copper);transform:rotate(45deg)}
+.files{display:grid;gap:10px}
+.files div{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;border-bottom:1px solid var(--rule);padding-block:10px}
+.files div span:last-child{color:var(--ink-soft)}
+
+@media (prefers-reduced-motion: reduce){
+  .play .wm path,.play .wm .turn,.play .tag span,.dot,.iris .b,.lift .a,.lift .b{animation:none!important;stroke-dasharray:none!important;opacity:1!important}
+  .dot{left:calc(100% - 16px)}
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Brand identity · Motion system v1.0</div>
+    <div class="stage" id="stage">
+      <svg class="wm" id="wm" viewBox="0 0 617 72" role="img" aria-label="UTONDU wordmark"></svg>
+      <div class="tag" id="tag" aria-label="The comfort of life"></div>
+      <button class="replay" id="replay" type="button">Replay</button>
+    </div>
+    <p class="lede">UTONDU moves the way a well-made sofa receives you. Things arrive with confidence, then settle slowly. Nothing snaps, nothing bounces, and nothing hurries to leave.</p>
+  </header>
+
+  <section>
+    <div class="eyebrow">Principles</div>
+    <div class="principles">
+      <div><h3>Settle, don't land</h3><p>Every entrance starts quickly and spends most of its time easing into place. The last 40% of any move is the softest.</p></div>
+      <div><h3>Build from the module</h3><p>The wordmark is drawn, never faded. Letters draw left to right as single strokes, and the n is the U turned over: the one signature moment.</p></div>
+      <div><h3>Rounded, like the letterforms</h3><p>Masks, wipes and reveals take their corner radius from the O. Hard-edged geometry is reserved for the clear-space system.</p></div>
+      <div><h3>Quiet palette, quiet motion</h3><p>Chocolate, White Rock and Foggy Grey carry every frame. Light drifts slowly across grounds; there are no glows, flares or particles.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Easing</div>
+    <h2>Four curves, one feeling</h2>
+    <div class="curves" id="curves"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Timing @ 30 fps</div>
+    <h2>Durations and rhythm</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Token</th><th>Frames</th><th>Seconds</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>beat</td><td>6</td><td>0.20</td><td>Stagger between siblings: letters, panels, footer words</td></tr>
+          <tr><td>quick</td><td>12</td><td>0.40</td><td>Small moves such as labels, dots and hex codes</td></tr>
+          <tr><td>base</td><td>24</td><td>0.80</td><td>Standard text entrance and mask rises</td></tr>
+          <tr><td>slow</td><td>36</td><td>1.20</td><td>Hero entrances and single-letter line draws</td></tr>
+          <tr><td>turn</td><td>30</td><td>1.00</td><td>The U → n turn, always on <code>glide</code></td></tr>
+          <tr><td>transition</td><td>20</td><td>0.67</td><td>Scene to scene, always on <code>glide</code></td></tr>
+          <tr><td>hold</td><td>≥ 45</td><td>≥ 1.50</td><td>Minimum hold on any finished lockup before cutting away</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Logo sting · 7 s</div>
+    <h2>The build, frame by frame</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Frames</th><th>Time</th><th>Action</th><th>Curve</th></tr></thead>
+        <tbody>
+          <tr><td>0–10</td><td>0.00–0.33</td><td>Empty ground. Warm light starts drifting left to right.</td><td>linear</td></tr>
+          <tr><td>10–81</td><td>0.33–2.70</td><td>U T O U D U draw as strokes, one beat apart (7f). Spacing gathers from 116% to 100%.</td><td>draw · settle</td></tr>
+          <tr><td>64–94</td><td>2.13–3.13</td><td>The fourth letter turns 180° into the n.</td><td>glide</td></tr>
+          <tr><td>96–144</td><td>3.20–4.80</td><td>Tagline rises letter by letter (1.2f stagger); tracking closes from 0.45em to 0.08em.</td><td>settle</td></tr>
+          <tr><td>0–150</td><td>0–5.00</td><td>Whole lockup settles from 103.5% to 100% scale.</td><td>settle</td></tr>
+          <tr><td>150–210</td><td>5.00–7.00</td><td>Hold on master lockup. Clean out-point.</td><td>none</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Transitions</div>
+    <h2>Two moves between scenes</h2>
+    <div class="trans">
+      <figure>
+        <div class="tbox iris"><div class="a">SCENE A</div><div class="b">SCENE B</div></div>
+        <figcaption><h3>O-iris</h3><span>The next scene opens out of a stadium shape borrowed from the O. Use it when moving into a new idea, such as statement to construction.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="tbox lift"><div class="a">SCENE A</div><div class="b">SCENE B</div></div>
+        <figcaption><h3>Lift</h3><span>The next scene rises like a panel while the last one drifts up 12% behind it, a gentle parallax. Use it to continue a thought, such as palette to product.</span></figcaption>
+      </figure>
+    </div>
+    <p>A plain 20-frame crossfade is allowed once per piece, into the end card. No slides from the side, spins, zooms or glitches.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Usage</div>
+    <div class="rules">
+      <div><h3 style="margin-bottom:16px">Do</h3><ul>
+        <li>Draw the wordmark from the master geometry: 1.29:1 letters, stroke 0.135H, radius 0.41H.</li>
+        <li>Keep ½H clear space around the finished lockup in every frame.</li>
+        <li>Finish every piece on the master lockup over cream or chocolate.</li>
+        <li>Keep supporting type in Suisse Intl Thin, Light and Regular, in caps with open tracking.</li>
+      </ul></div>
+      <div class="no"><h3 style="margin-bottom:16px">Don't</h3><ul>
+        <li>Bounce, overshoot or elastic-ease any brand element.</li>
+        <li>Fade the wordmark in as a flat image, or scale it past 110%.</li>
+        <li>Animate letters out of order or turn any letter other than the n.</li>
+        <li>Introduce colours outside the three brand tones, apart from the copper clear-space markers in construction shots.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Deliverables</div>
+    <div class="files">
+      <div><span class="mono">UTONDU_LogoSting.mp4</span><span>1920×1080 · 7s · cream</span></div>
+      <div><span class="mono">UTONDU_LogoStingDark.mp4</span><span>1920×1080 · 7s · chocolate</span></div>
+      <div><span class="mono">UTONDU_Sizzle.mp4</span><span>1920×1080 · 29s · 7 scenes</span></div>
+      <div><span class="mono">UTONDU_SocialVertical.mp4</span><span>1080×1920 · 18s · Reels, TikTok, Stories</span></div>
+      <div><span class="mono">UTONDU_SocialSquare.mp4</span><span>1080×1080 · 18s · feed, LinkedIn</span></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  // Wordmark geometry: same numbers as the Remotion source (Wordmark.tsx).
+  var H=72,W=93,P=104.67,S=9.7,a=S/2,c=W-a,b=H-a,r=0.41*H-a;
+  var A=function(sw){return " A "+r+" "+r+" 0 0 "+sw+" ";};
+  var U="M "+a+" 0 V "+(b-r)+A(0)+(a+r)+" "+b+" H "+(c-r)+A(0)+c+" "+(b-r)+" V 0";
+  var O="M "+W/2+" "+a+" H "+(c-r)+A(1)+c+" "+(a+r)+" V "+(b-r)+A(1)+(c-r)+" "+b+" H "+(a+r)+A(1)+a+" "+(b-r)+" V "+(a+r)+A(1)+(a+r)+" "+a+" Z";
+  var D="M "+a+" "+a+" H "+(c-r)+A(1)+c+" "+(a+r)+" V "+(b-r)+A(1)+(c-r)+" "+b+" H "+a+" Z";
+  var letters=[[U],["M 0 "+a+" H "+W,"M "+W/2+" "+a+" V "+H],[O],[U],[D],[U]];
+  var svg=document.getElementById("wm"),ns="http://www.w3.org/2000/svg";
+  letters.forEach(function(ps,i){
+    var g=document.createElementNS(ns,"g");g.setAttribute("transform","translate("+(i*P)+" 0)");
+    var inner=document.createElementNS(ns,"g");if(i===3)inner.setAttribute("class","turn");
+    ps.forEach(function(d,j){var p=document.createElementNS(ns,"path");p.setAttribute("d",d);p.setAttribute("pathLength","1");
+      p.style.animationDelay=(0.33+i*0.233+j*0.5)+"s";if(ps.length>1)p.style.animationDuration="0.7s";inner.appendChild(p);});
+    g.appendChild(inner);svg.appendChild(g);
+  });
+  var tag=document.getElementById("tag");
+  "THE COMFORT OF LIFE".split("").forEach(function(ch,i){var s=document.createElement("span");s.textContent=ch===" "?" ":ch;s.style.animationDelay=(3.2+i*0.04)+"s";tag.appendChild(s);});
+  var stage=document.getElementById("stage");
+  function play(){stage.classList.remove("play");void stage.offsetWidth;stage.classList.add("play");}
+  document.getElementById("replay").addEventListener("click",play);
+  play();
+
+  // Easing specimens
+  var curves=[
+    ["settle","0.16, 1, 0.3, 1","Default for anything entering. Fast start, long soft landing."],
+    ["glide","0.65, 0, 0.35, 1","Two-way moves: the turn, scene transitions, panel breathing."],
+    ["draw","0.45, 0, 0.2, 1","Line drawing. Even pace with a gentle finish on each stroke."],
+    ["exit","0.7, 0, 0.84, 0","Rare exits. Leaves quietly, never faster than it arrived."]
+  ];
+  var host=document.getElementById("curves");
+  curves.forEach(function(cv){
+    var p=cv[1].split(",").map(Number);
+    var x=function(v){return 10+v*180;},y=function(v){return 130-v*120;};
+    var el=document.createElement("div");el.className="curve";
+    el.innerHTML='<h3>'+cv[0]+'</h3><svg viewBox="0 0 200 140" aria-hidden="true"><path class="axis" d="M10 10 V130 H190"/><path class="line" d="M'+x(0)+' '+y(0)+' C '+x(p[0])+' '+y(p[1])+' '+x(p[2])+' '+y(p[3])+' '+x(1)+' '+y(1)+'"/></svg><div class="track"><div class="dot" style="animation-timing-function:cubic-bezier('+cv[1]+')"></div></div><div class="meta"><span class="mono">cubic-bezier('+cv[1]+')</span><br>'+cv[2]+'</div>';
+    host.appendChild(el);
+  });
+})();
+</script>
